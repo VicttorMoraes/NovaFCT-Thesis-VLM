@@ -7,11 +7,12 @@
 template.*
 # …except template.tex
 !template.tex
-!template.pdf
+# !template.pdf
 
 # Ignore temp files
 .needlualatex
 .keep-dir
+aidisclose.bib
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
@@ -398,6 +399,6 @@ $RECYCLE.BIN/
 # **/Fonts
 
 ### Scripts ###
-**/Scripts
+Scripts/
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,windows,linux,macos

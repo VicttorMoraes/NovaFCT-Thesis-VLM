@@ -20,8 +20,6 @@
 \frontpageimage():={cover}
 \thesiscover(1-1,bgcolor):={white}
 \thesiscover(1-1,image):={\thefrontpageimage()}
-% \thesiscover(1-1,image):={\thefrontpageimage()}
-% \thesiscover(1-1,image):={\thefrontpageimage()}
 
 % Set margins for cover pages
 \margin(cover,top):={2.9cm}
@@ -56,9 +54,9 @@
 \dissertationstring(phd,en)={Thesis to obtain the Degree of %
 \thedegreestring(\@DOCTYPE,\expanded{\thedocauthor(gender)},\@LANG@COVER)\ in\\[1ex] \textbf{\fontsize{14}{14}\selectfont\themajorfield(\@LANG@COVER)}}
 
+
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
-  % \RequirePackage{gillius2}%
+  %\LoadHelveticaLikeFont%  % \RequirePackage{gillius2}%
 }
 
 \NTAddToHook{cover/1-1/text/pre}{%
@@ -81,7 +79,7 @@
 % % Title of Dissertation
 \ntaddtocover[vspace=3.5cm]{1-1,2-1}{%
   \fontsize{18}{20}\selectfont%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % Author name
@@ -120,6 +118,6 @@
 % Date
 \ntaddtocover[vspace=1]{1-1,2-1}{%
   \fontsize{14}{14}\selectfont%
-    \textbf{\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}%
+    \textbf{\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}%
 }
 

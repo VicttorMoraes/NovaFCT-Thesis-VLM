@@ -7,7 +7,7 @@
 
 \typeout{NT FILE ipl/isel/defaults.ldf}%
 
-% \ntsetup{print/secondcover=true}
+% \ntsetup{print/frontpage=true}
 
 % Faculty / School
 \school(pt):={Instituto Superior de Engenharia de Lisboa}
@@ -20,8 +20,7 @@
 % \majorfield(en):={Industrial Engineering and Management}
 
 % Department
-\department(pt):={Área Departamental de \themajorfield(pt)}
-\department(en):={Department of \themajorfield(en)}
+\departmentofstring(pt)         := {Área Departamental de}
 
 % Comiittee printing order
 \committeeorder():={c,m}%
@@ -79,7 +78,6 @@
 %% Draw the cover page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
 }
 
 \NTAddToHook{cover/1-1/text/pre}{%
@@ -98,9 +96,10 @@
 % School%
 \ntaddtocover[vspace=0cm]{1-1,2-1}{%
   \fontsize{14}{14}\selectfont%
-  \textbf{\THEschool(\@LANG@COVER)}\\%
+  \textbf{\ToUppercase{\theschool(\@LANG@COVER)}}\\%
   \fontsize{14}{14}\selectfont%
-  \textbf{\thedepartment(\@LANG@COVER)}%
+  \textbf{\ToUppercase{\GetDepartmentofstring(\@LANG@COVER)}}
+  \textbf{\ToUppercase{\GetDepartment(\@LANG@COVER)}}%
 }
 
 \ntaddtocover[vspace=0.5cm,height=8cm,valign=c]{1-1,2-1}{%
@@ -113,7 +112,7 @@
 % % Title of Dissertation
 \ntaddtocover[vspace=0.5cm,]{1-1,2-1}{%
   \fontsize{18}{20}\selectfont%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % Author name
@@ -163,6 +162,6 @@
 % Date
 \ntaddtocover[vspace=2]{1-1,2-1}{%
   \fontsize{10}{10}\selectfont%
-    \textbf{\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}
+    \textbf{\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}
 }
 

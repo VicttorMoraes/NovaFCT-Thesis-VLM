@@ -12,7 +12,7 @@
 
 % Configure the font set to Times New Roman
 \ntsetup{style/font=newtx}
-\ntsetup{print/secondcover=true}
+\ntsetup{print/frontpage=true}
 
 % University
 \university(pt):={Universidade Lusófona de Humanidades e Tecnologias}
@@ -85,6 +85,16 @@
 \copyrighttextstring(en)={The \theschool(\@LANG@COVER)\ and the \theuniversity(\@LANG@COVER)\ have the right, perpetual and without geographical boundaries, to file and publish this dissertation through printed copies reproduced on paper or on digital form, or by any other means known or that may be invented, and to disseminate through scientific repositories and admit its copying and distribution for non-commercial, educational or research purposes, as long as credit is given to the author and editor.}
 
 
+% Spine info
+\SpineSetup[%
+]{%
+  box/logo/bg/image           = {ulht-logo},
+  box/logo/bg/image/angle     = {-90},
+  box/title/len               = {18.6cm},
+  box/logo/len                = {2.1cm},
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Draw the cover page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,19 +121,19 @@
 % Author name
 \ntaddtocover[vspace=0mm,valign=t,height=2cm]{1-1,2-1}{%
   \fontsize{16}{16}\selectfont%
-  \textbf{\THEdocauthor(name)}%
+  \textbf{\ToUppercase{\thedocauthor(name)}}%
 }
 
 % % Title of Dissertation 1-1
 \ntaddtocover[vspace=8.7cm,valign=c,height=2cm]{1-1}{%
   \fontsize{18}{18}\selectfont%
-  \textbf{\THEdoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\ToUppercase{\thedoctitle(\@LANG@COVER,main)}}%
 }
 
 % % Title of Dissertation 2-1
 \ntaddtocover[vspace=7.3 cm,valign=c,height=2cm]{2-1}{%
   \fontsize{18}{18}\selectfont%
-  \textbf{\THEdoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\ToUppercase{\thedoctitle(\@LANG@COVER,main)}}%
 }
 
 % Presentation text
@@ -176,6 +186,6 @@
 % Date
 \ntaddtocover[vspace=3.3cm]{1-1,2-1}{%
   \fontsize{12}{12}\selectfont\bfseries%
-    Lisboa\\\printisodate{\thentdocdate(submission,year)}%
+    Lisboa\\\printisodate{\GetDocDate(submission,year)}%
 }
 

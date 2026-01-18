@@ -57,8 +57,7 @@
 \committeeorder():={c,r,m}%
 
 \openany
-\ntsetup{print/secondcover=true}
-\ntsetup{numberallpages=true}
+\ntsetup{print/frontpage=true}
 \AtEndPreamble{
   \ifdocworking{}{\ntsetup{print/statement=true}}
   \ntlangsetup*{pt/acronym=Lista de Siglas e Abreviaturas}
@@ -66,7 +65,7 @@
 }
 
 \ntbibsetup{style=apa}
-\ntsetup{spine/layout=no}
+\ntsetup{spine/layout=off}
 \AtEndPreamble{\let\cite\parencite}
 
 
@@ -139,8 +138,8 @@
 \spine(row)={1.745cm}
 
 % \spine(author)={\thedocauthor(name)}
-% \spine(title)={\thedoctitle(\@LANG@COVER,main)}
-% \spine(date)={\thentdocdate(submission,year)}
+% \spine(title)={\thedoctitle(\@LANG@COVER,main,plain)}
+% \spine(date)={\GetDocDate(submission,year)}
 \spine(logo)={logo-novaims}
 
 \IfStrEq{\@DEGREEACR}{}{%
@@ -297,8 +296,7 @@
 
 
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
-  % \RequirePackage{gillius2}%
+  %\LoadHelveticaLikeFont%  % \RequirePackage{gillius2}%
 }
 
 \NTAddToHook{cover/1-1/text/pre}{%
@@ -388,13 +386,13 @@
 \ntaddtocover[halign=c,valign=c,height=1.0cm]{1-1}{%
   \color{imsdarkgrey}%
   \fontsize{17.5}{17.5}\selectfont\bfseries%
-  \THEdoctitle(\@LANG@COVER,main,cover)
+  \ToUppercase{\thedoctitle(\@LANG@COVER,main)}
 }
 
 \ntaddtocover[halign=c,valign=c,vspace=5mm]{1-1}{%
   \color{imsmidgrey}%
   \fontsize{15.8}{15.8}\selectfont%
-  \thedoctitle(\@LANG@COVER,sub,cover)
+  \thedoctitle(\@LANG@COVER,sub)
   ~\\~
 }
 
@@ -441,7 +439,7 @@
 \ntaddtocover[vspace=5.3cm,halign=c,valign=c,height=1.8cm]{2-1}{%
   \color{imsdarkgrey}%
   \fontsize{16.5}{21}\selectfont\bfseries%
-  \THEdoctitle(\@LANG@COVER,main,cover)
+  \ToUppercase{\thedoctitle(\@LANG@COVER,main)}
 }
 
 
@@ -482,7 +480,7 @@
 % DATE
 \ntaddtocover[halign=c, vspace=1]{2-1}{%
   \fontsize{11}{11}\selectfont%
-  \printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}%
+  \printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -7,7 +7,7 @@
 
 \typeout{NT FILE ulisboa/fcul/defaults.ldf}%
 
-\ifdocfinal{\ntsetup{print/secondcover=true}}{}
+\ifdocfinal{\ntsetup{print/frontpage=true}}{}
 
 % Faculty / School
 \school(pt):={Faculdade de Ciências}
@@ -15,26 +15,12 @@
 \school(fr):={Faculty of Sciences}
 \school(it):={Faculty of Sciences}
 
-% Department field
-\ntdepartment(pt){Departamento de Nome do Departamento}
-\ntdepartment(en){Department of Name of the Department}
-
 % Specialization field
 \specialization(pt):={Especialidade}
 \specialization(en):={Specialization}
 
 % Comiittee printing order
 \committeeorder():={c,r,a,m}%
-
-% Cover background images
-\thesiscover(phd,bgcolor):={white}
-\thesiscover(msc,bgcolor):={white}
-
-% Spine info
-\spine(logo)={ulisboa-fc-logo}
-\spine(author)={\thedocauthor(name,short)}
-\spine(title)={\thedoctitle(\@LANG@COVER,main)}
-\spine(year)={\thentdocdate(submission,year)}
 
 % Set margins for "normal" pages
 \margin(screen,top):={3.5cm}
@@ -96,6 +82,16 @@
 \dissertationstring(phd,en)={Document written to earn the degree of %
 \thedegreestring(\option{/novathesis/doctype},\expanded{\thedocauthor(gender)},\@LANG@COVER)}
 
+% Spine info
+\SpineSetup[%
+]{%
+  box/logo/bg/image           = {ulisboa-fc-logo},
+  box/logo/bg/image/angle     = {-90},
+  box/title/len   = 18.6cm,
+  box/logo/len    =  2.1cm,
+  % debug,
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FCUL guidelines:
@@ -110,8 +106,7 @@
 
 % Temporary macro to use in conditional expressions;
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
-  % \RequirePackage{gillius2}%
+  %\LoadHelveticaLikeFont%  % \RequirePackage{gillius2}%
 }
 
 \NTAddToHook{cover/1-1/text/pre}{%
@@ -126,10 +121,11 @@
 % School
 \ntaddtocover[height=2.5cm, valign=t]{1-1,2-1}{%
   \fontseries{mc}\fontsize{12}{12}\selectfont%
-  {\THEuniversity(\@LANG@COVER)}\\[2mm]%
-  {\THEschool(\@LANG@COVER)}\\[2mm]%
+  {\ToUppercase{\theuniversity(\@LANG@COVER)}}\\[2mm]%
+  {\ToUppercase{\theschool(\@LANG@COVER)}}\\[2mm]%
   \ifmscdoc
-     {{\THEdepartment(\@LANG@COVER)}}%
+     {\ToUppercase{\GetDepartmentofstring(\@LANG@COVER)}
+      \ToUppercase{\GetDepartment(\@LANG@COVER)}}%
     {}%
 }
 
@@ -143,13 +139,13 @@
 % PhD Title of Dissertation
 \ntaddtocover[degree=phd/phdprop/phdplan, vspace=0.2cm, height=2cm]{1-1,2-1}{%
   \fontseries{mc}\fontsize{17}{17}\selectfont%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % MSc Title of Dissertation
 \ntaddtocover[degree=msc/mscplan, vspace=2.0cm, height=2cm]{1-1,2-1}{%
   \fontseries{mc}\fontsize{17}{17}\selectfont%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % Doc Status
@@ -236,5 +232,5 @@
 \ntaddtocover[vspace=1.4cm]{1-1,2-1}{%
   % \fontseries{mc}
   \fontsize{14}{14}\selectfont%
-    \printisodate{\thentdocdate(submission,year)}%
+    \printisodate{\GetDocDate(submission,year)}%
 }

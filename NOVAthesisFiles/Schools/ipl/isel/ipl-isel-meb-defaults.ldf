@@ -7,9 +7,9 @@
 
 \typeout{NT FILE ipl/isel/ipl-isel-meb-defaults.ldf}%
 
-\input{NOVAthesisFiles/Schools/ipl/isel/ipl-isel-defaults.ldf}
+\input{\DIRSCHOOLS/ipl/isel/ipl-isel-defaults.ldf}
 
-\ntsetup{print/secondcover=true}
+\ntsetup{print/frontpage=true}
 
 \def\@LANG@COVER{pt}%
 
@@ -59,8 +59,7 @@ Mestre em Engenharia Biomédica}
 \ntresetcovers
 
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
-}
+  %\LoadHelveticaLikeFont%}
 
 \NTAddToHook{cover/1-1/text/pre}{%
   \sffamily%
@@ -77,7 +76,7 @@ Mestre em Engenharia Biomédica}
   \includegraphics[height=1.225cm,align=c]{ipl-logo}%
   \hspace*{2.6cm}%
   \fontsize{12.9}{13}\selectfont%
-  \textbf{\THEuniversity(pt)}%
+  \textbf{\ToUppercase{\theuniversity(pt)}}%
 }
 
 %% ISEL e ESTSL
@@ -104,7 +103,7 @@ Mestre em Engenharia Biomédica}
 \ntaddtocover[vspace=1.5cm,]{1-1,2-1}{%
   \fontsize{16.5}{16}\selectfont%
   \bfseries%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % Author name
@@ -157,7 +156,7 @@ Mestre em Engenharia Biomédica}
   \fontsize{11}{11}\selectfont%
   \iftoggle{/novathesis/print/timestamp}{%
     \ifdocworking{\emph{\color{blue}\textbf{Draft:} \today}}%
-                 {\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}%
-  }{\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}%
+                 {\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}%
+  }{\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}%
 }
 

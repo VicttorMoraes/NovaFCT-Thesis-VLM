@@ -7,7 +7,7 @@
 
 \typeout{NT FILE ul/iseg/defaults.ldf}%
 
-\ifdocfinal{\ntsetup{print/secondcover=true}}{}
+\ifdocfinal{\ntsetup{print/frontpage=true}}{}
 
 % Faculty / School
 \school(pt):={Instituto Superior de Economia e Gestão}
@@ -42,36 +42,12 @@
 \degreestring(phdplan,m,en):={PhD Degree}
 \degreestring(phdplan,f,en):={PhD Degree}
 \degreestring(phdprop,m,en):={PhD Degree}
-% \degreestring(phd,m,en):={PhD Degree}
-% \degreestring(phd,f,en):={PhD Degree}
-% \degreestring(phdplan,m,en):={PhD Degree}
-% \degreestring(phdplan,f,en):={PhD Degree}
-% \degreestring(phdprop,m,en):={PhD Degree}
-% \degreestring(phdprop,f,en):={PhD Degree}
-
-% Scientific field
-% \majorfield(pt):={Engenharia Informática e de Computadores}
-% \majorfield(en):={Computer Science and Engineering}
 
 % Comiittee printing order
 \committeeorder():={c,m}%
 
 % Cover background images
 \thesiscover(phd,1-1,bgcolor):={white}
-% \thesiscover(phd,1-1,image):={modelo-capa-definitiva-tese-de-doutoramento-1}
-% \thesiscover(phd,2-1,image):={modelo-capa-definitiva-tese-de-doutoramento-2}
-% \thesiscover(phdplan,front,image):={}
-% \thesiscover(phdprop,front,image):={}
-% \thesiscover(msc,front,image):={}
-% \thesiscover(mscplan,front,image):={}
-% \thesiscover(bsc,front,image):={}
-% \thesiscover(plain,front,image):={}
-
-% Spine info
-\spine(logo)={ulisboa-iseg-logo}
-\spine(author)={\thedocauthor(name,short)}
-\spine(title)={\thedoctitle(\@LANG@COVER,main)}
-\spine(year)={\thentdocdate(submission,year)}
 
 % Set margins for "normal" pages
 \margin(screen,top):={3.5cm}
@@ -135,6 +111,15 @@
 
 \copyrighttextstring(en)={The \theschool(\@LANG@COVER)\ and the \theuniversity(\@LANG@COVER)\ have the right, perpetual and without geographical boundaries, to file and publish this dissertation through printed copies reproduced on paper or on digital form, or by any other means known or that may be invented, and to disseminate through scientific repositories and admit its copying and disegribution for non-commercial, educational or research purposes, as long as credit is given to the author and editor.}
 
+% Spine info
+\SpineSetup[%
+]{%
+  box/logo/bg/image           = {ulisboa-iseg-logo},
+  box/logo/bg/image/angle     = {-90},
+  box/title/len               = {18.6cm},
+  box/logo/len                = {2.1cm},
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % IST guidelines:
@@ -152,8 +137,7 @@
 %% Draw the cover page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtEndPreamble{%
-  \LoadHelveticaLikeFont%
-  % \RequirePackage{gillius2}%
+  %\LoadHelveticaLikeFont%  % \RequirePackage{gillius2}%
 }
 
 % \NTAddToHook{cover/1-1/text/pre}{%
@@ -168,9 +152,9 @@
 \ntaddtocover[vspace=0mm]{1-1,2-1}{%
     \fontsize{13}{17}\selectfont%
   % \SetTracking[ spacing = {25*,166, } ]{ encoding = * }{ 25 }%
-  \textbf{\textls[25]{\THEuniversity(\@LANG@COVER)}}\\%
+  \textbf{\textls[25]{\ToUppercase{\theuniversity(\@LANG@COVER)}}}\\%
   \vspace{2mm}%
-  \textbf{\textls[25]{\THEschool(\@LANG@COVER)}}%
+  \textbf{\textls[25]{\ToUppercase{\theschool(\@LANG@COVER)}}}%
 }
 
 % LOGO
@@ -197,7 +181,7 @@
 % % Title of Dissertation
 \ntaddtocover[vspace=1.2cm,height=1.35cm,valign=c]{1-1,2-1}{%
     \fontsize{13}{15}\selectfont%
-  \textbf{\thedoctitle(\@LANG@COVER,main,cover)}%
+  \textbf{\thedoctitle(\@LANG@COVER,main)}%
 }
 
 % Author name
@@ -241,6 +225,6 @@
 % Date
 \ntaddtocover[vspace=1,height=8.5mm,valign=b]{1-1,2-1}{%
     \fontsize{12}{12}\selectfont%
-    {\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}%
+    {\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}%
 }
 

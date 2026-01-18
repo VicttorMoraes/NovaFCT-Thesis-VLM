@@ -17,7 +17,7 @@
 %-----------------------------------------------------------------
 % novathesis customization
 %-----------------------------------------------------------------
-\ntsetup{print/secondcover=true}    % Shall a second cover page be forced?
+\ntsetup{print/frontpage=true}    % Shall a second cover page be forced?
 \ntsetup{style/font=calibri}
 
 % University
@@ -39,13 +39,6 @@
 \thesiscover(1-1,bgcolor):={white}
 \thesiscover(1-1,image):={other-esep-cover}
 
-% Spine info
-\spine(logo)={other-esep-logo_horiz}
-\spine(logo,angle)={90}
-\spine(author)={\thedocauthor(name,short)}
-\spine(title)={\thedoctitle(\@LANG@COVER,main)}
-\spine(year)={\thentdocdate(submission,year)}
-
 % Set margins for "normal" pages
 \margin(screen,top):={2.5cm}
 \margin(screen,bottom):={2.5cm}
@@ -62,6 +55,15 @@
 \margin(cover,left):={7cm}
 \margin(cover,right):={0.5cm}
 
+% Spine info
+\SpineSetup[%
+]{%
+  box/logo/bg/image           = {other-esep-logo_horiz},
+  % box/logo/bg/image/angle     = {-90},
+  % box/title/len               = {18.6cm},
+  % box/logo/len                = {2.1cm},
+}
+
 
 
 
@@ -73,7 +75,7 @@
 \ntaddtocover[vspace=2.2cm]{1-1,2-1}{%
   \noindent%
   \fontsize{15}{15}\selectfont%
-  \textbf{{\THEschool(\@LANG@COVER)}}%
+  \textbf{{\ToUppercase{\theschool(\@LANG@COVER)}}}%
 }
 
 % Degree name
@@ -86,7 +88,7 @@
 \ntaddtocover[vspace=6.5cm, height=4cm, valign=t]{1-1}{%
     \centering%
     \fontsize{15}{15}\selectfont%
-    {\THEdoctitle(\@LANG@COVER,main,cover)}\\[1ex]%
+    {\ToUppercase{\thedoctitle(\@LANG@COVER,main)}}\\[1ex]%
     \fontsize{12}{12}\selectfont%
     Dissertação%
 }
@@ -95,8 +97,8 @@
 \ntaddtocover[vspace=6.5cm, height=4cm, valign=t]{2-1}{%
     \centering%
     \fontsize{15}{15}\selectfont\scshape%
-    \thedoctitle(\@LANG@COVER,main,cover)\\[1ex]%
-    \thedoctitle(en,main,cover)%
+    \thedoctitle(\@LANG@COVER,main)\\[1ex]%
+    \thedoctitle(en,main)%
 }
 
 % Advisers 2
@@ -123,7 +125,7 @@
 % Date
 \ntaddtocover[vspace=2]{1-1,2-1}{%
   \fontsize{12}{12}\selectfont
-    \textbf{\printisodate{\thentdocdate(submission,year)-\thentdocdate(submission,month)}}%
+    \textbf{\printisodate{\GetDocDate(submission,year)-\GetDocDate(submission,month)}}%
 }
 
 %
@@ -135,7 +137,7 @@
 % \ntaddtocover[vspace=2.2cm]{2-1}{%
 %   \ntcoverbackground
 %   \fontsize{15}{15}\selectfont
-%   \expandafter\MakeUppercase\expandafter{\textbf{\theschool(\@LANG@COVER)}}
+%   \expandafter\ToUppercase\expandafter{\textbf{\theschool(\@LANG@COVER)}}
 % }
 %
 % % % Degree name
@@ -149,8 +151,8 @@
 %   % \fontseries{mc}
 %   \fontsize{15}{15}\selectfont
 %   \scshape
-%   \thedoctitle(\@LANG@COVER,main,cover)\\[1ex]
-%   \thedoctitle(\@LANG@COVER,main,cover)[en]
+%   \thedoctitle(\@LANG@COVER,main)\\[1ex]
+%   \thedoctitle(\@LANG@COVER,main)[en]
 % }
 %
 % % Author name
@@ -165,7 +167,7 @@
 %   \ifdraftdoc
 %     \textbf{DRAFT: \today}
 %   \else
-%     \thentdocdate(month), \thentdocdate(year)
+%     \GetDocDate(month), \GetDocDate(year)
 %   \fi
 % }
 %
