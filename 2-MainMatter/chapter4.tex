@@ -49,6 +49,78 @@ By systematically varying the parameter e(needstochange), different risk toleran
 
 This approach allows decision-makers to explicitly evaluate the trade-offs between economic performance and risk exposure and to select fleet compositions that align with their risk preferences and budget constraints.
 
+\section{Sets, Indices, and Parameters}
+\label{sec:Sets_Indices_Parameters}
+
+The fleet replacement problem is formulated over a discrete planning horizon and a finite set of vehicle technologies. The main sets and indices used in the model are defined as follows:
+
+\begin{itemize}
+    \item $t \in \mathcal{T} = \{0, \dots, T\}$: index of time periods.
+    \item $k \in \mathcal{K}$: index of vehicle technologies (e.g., ICEV, HEV, EV).
+    \item $i \in \mathcal{I}_k = \{0, \dots, A_k\}$: index of vehicle age for technology $k$.
+    \item $s \in \mathcal{S}$: index of uncertainty scenarios.
+\end{itemize}
+
+The main parameters include vehicle acquisition costs, operating costs, utilization rates, discount rate, and scenario probabilities. All cost-related parameters follow the formulation introduced in Section~2.4 and may vary across scenarios when uncertainty is considered.
+
+\section{Decision Variables}
+\label{sec:Decision_Variables}
+
+The following decision variables are used in the optimization model:
+
+\begin{itemize}
+    \item $X_{i,t,k}$: number of vehicles of technology $k$ and age $i$ operated in period $t$.
+    \item $Z_{t,k}$: number of new vehicles of technology $k$ purchased at the beginning of period $t$.
+    \item $Y_{i,t,k}$: number of vehicles of technology $k$ and age $i$ salvaged at the end of period $t$.
+\end{itemize}
+
+All decision variables are non-negative integers, reflecting the discrete nature of fleet composition and replacement decisions.
+
+\section{Model Constraints}
+\label{sec:Model_Constraints}
+
+\subsection{Fleet Balance and Aging Constraints}
+\label{subsec:Fleet_Balance_Aging_Constraints}
+
+Fleet evolution over time is governed by vehicle aging and replacement dynamics. For each technology $k$ and age $i \geq 1$, the number of vehicles of age $i$ in period $t+1$ is equal to the number of vehicles of age $i-1$ in period $t$ minus those salvaged:
+\begin{equation}
+X_{i,t+1,k} = X_{i-1,t,k} - Y_{i-1,t,k}, \quad \forall i \geq 1, \; t, \; k.
+\end{equation}
+
+Newly acquired vehicles enter the fleet with age zero:
+\begin{equation}
+X_{0,t+1,k} = Z_{t,k}, \quad \forall t, \; k.
+\end{equation}
+
+\subsection{Acquisition and Retirement Constraints}
+\label{subsec:Acquistion_Retirement_Constraints}
+
+Vehicles can only be salvaged if they exist in the fleet:
+\begin{equation}
+Y_{i,t,k} \leq X_{i,t,k}, \quad \forall i, \; t, \; k.
+\end{equation}
+
+Additionally, vehicles exceeding their maximum allowable age $A_k$ must be retired:
+\begin{equation}
+X_{A_k,t+1,k} = 0, \quad \forall t, \; k.
+\end{equation}
+
+\subsection{Domain Constraints}
+\label{subsec:Domain_Constraints}
+
+All decision variables are required to be non-negative integers:
+\begin{equation}
+X_{i,t,k}, \; Y_{i,t,k}, \; Z_{t,k} \in \mathbb{Z}_{+}, \quad \forall i, \; t, \; k.
+\end{equation}
+
+\section{Modeling Assumptions}
+\label{sec:Modeling_Assumptions}
+
+The proposed model assumes deterministic fleet demand and utilization levels over the planning horizon, while uncertainty is captured through stochastic cost parameters. Vehicle technologies are assumed to be perfectly substitutable in terms of service provision, and operational constraints such as routing or charging schedules are not explicitly modeled. These assumptions allow the focus to remain on strategic fleet replacement decisions under uncertainty.
+
+
+
+%% ---------------------------------------- FUTURE WORK CHAPTER 5 -------------------------------------------------- %%
 \chapter{Future Work}
 \label{cha:Future Work}
 
