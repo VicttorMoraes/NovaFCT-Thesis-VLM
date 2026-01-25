@@ -9,12 +9,12 @@
 \typeout{NT FILE chapter2.tex}%
 
 \chapter{Literature review}
-\label{cha:Literature review}
+\label{cha:Literature_review}
 
 \glsresetall
 
 \section{Sustainable Urban Logistics and the EV Transition}
-\label{sec:Sustainable Urban Logistics and the EV Transition}
+\label{sec:Sustainable_Urban_Logistics_and_the_EV_Transition}
 
 Driven by e-commerce and urbanization, last-minute delivery has grown substantially and it has intensified the challenges of urban freight distribution. As noted by Ahani et al. (2016), many studies have been published with the goal of dealing GHG, noise emission and congestion arising from the freight movements inside urban populated areas (Barter et al., 2012; Tipagornwong and Figliozzi, 2014; Dablanc, 2007; OECD, 2003; Pelletier et al., 2016; Russo and Comi, 2012). Urban logistics is a primary source of congestion and local pollution. Consequently, regulatory bodies are implementing stricter measures, such as Low Emission Zones (LEZ) and carbon taxes, forcing operators to take a second and think carefully about their fleet composition. \par
 
@@ -23,14 +23,14 @@ Electric Vehicles (EVs) have emerged as the leading alternative to Internal Comb
 Furthermore, the economic environment for fleet operators is becoming increasingly volatile. According to the World Bank’s Commodity Markets Outlook (2025), energy prices are subject to significant downside and upside risks driven by geopolitical tensions and supply chain disruptions. This report highlights that while supply conditions might stabilize some commodity prices, the risks of extreme fluctuations remain. For a fleet manager, this reinforces that relying on static cost averages is dangerous; a robust model must account for these potential extreme price swings (tail risks).
 
 \section{Fleet Replacement Optimization Models}
-\label{sec:Fleet Replacement Optimization Models}
+\label{sec:Fleet_Replacement_Optimization_Models}
 
 The fleet replacement problem has been widely studied in Operations Research. Traditionally, these problems were modeled using deterministic approaches, assuming fixed future costs for fuel and vehicles. However, when considering real-world volatility, deterministic models are insufficient. \par
 
 Recent literature has shifted towards stochastic optimization. For example, Onyshchenko et al. (2024) discuss integrated models for complex transport systems, emphasizing the need to account for variable parameters. Similarly, Ahani et al. (2023) introduced regulatory constraints into replacement models, showing that policy uncertainty significantly impacts optimal replacement timing. The consensus is clear: models must account for randomness in input parameters (fuel prices, demand, technology costs) to provide robust solutions. Kaszubowski (2019) proposes a three-tier qualitative method to evaluate urban freight models, emphasizing the need for tools that align strategic objectives with operational data. Similarly, a systematic review by Alvarez Gallo and Maheut (2023) highlights the extensive use of Multi-Criteria Decision Analysis (MCDA) to balance conflicting goals like sustainability and cost. However, while MCDA is excellent for ranking strategic alternatives, it often lacks the mathematical capacity to quantify financial risk distributions explicitly. This thesis moves beyond qualitative ranking to quantitative portfolio optimization, specifically addressing the financial risk of asset replacement described by Ahani et al. (2016).
 
 \section{The Portfolio Approach in Transportation}
-\label{sub:The Portfolio Approach in Transportation}
+\label{sub:The_Portfolio_Approach_in_Transportation}
 
 In order to handle these uncertainties, researchers have used and adapted the Modern Portfolio Theory (MPT), originally developed by Markowitz (1952) for financial markets. The core premise of the adapted MPT is that a fleet of vehicles can be treated as a portfolio of assets.
 
@@ -43,13 +43,13 @@ In order to handle these uncertainties, researchers have used and adapted the Mo
 The work by Ahani et al. (2016) pioneered this approach for urban fleets. They formulated a Multi-Objective Optimization model where the objective was to minimize the Expected Total Cost (ETC) and minimize the Variance of the Total Cost. Their results demonstrated that a diversified fleet (mixing ICEVs and EVs) provides a hedge against fuel price spikes, similar to how a diversified stock portfolio protects against market crashes. This methodology provides the mathematical foundation for this thesis.
 
 \section{Total Cost Formulation in Fleet Replacement Models}
-\label{sub:Total Cost Formulation in Fleet Replacement Models}
+\label{sub:Total_Cost_Formulation_in_Fleet_Replacement_Models}
 
 In fleet replacement optimization problems, the definition of total cost plays a central role in evaluating alternative fleet compositions and investment strategies. Following the framework proposed by Ahani et al. (2016), the total cost of a fleet over the planning horizon is typically composed of several cost components, including vehicle acquisition costs, energy costs, maintenance and operation expenses, and residual values at the end of the vehicle life cycle.
 
 Vehicle acquisition costs represent the upfront capital expenditure associated with purchasing new vehicles of different technologies. Energy costs include fuel or electricity consumption and depend on vehicle efficiency, usage intensity, and energy prices, which may vary over time and across scenarios. Maintenance and operating costs capture routine servicing, repairs, and other operational expenses that are influenced by vehicle technology and age. In some formulations, residual values or replacement costs are also considered to account for the remaining value of vehicles at the end of the planning horizon.
 
-When uncertainty is present, some components of the total cost—most notably energy prices and operating expenses—are treated as stochastic variables. In this case, the total cost becomes a random variable, whose expected value and variance can be computed across a finite set of scenarios. This representation enables the integration of total cost modeling with portfolio-based optimization approaches, where Expected Total Cost is minimized while controlling for cost variability.
+When uncertainty is present, some components of the total cost, most notably energy prices and operating expenses, are treated as stochastic variables. In this case, the total cost becomes a random variable, whose expected value and variance can be computed across a finite set of scenarios. This representation enables the integration of total cost modeling with portfolio-based optimization approaches, where Expected Total Cost is minimized while controlling for cost variability.
 
 Let $X_{i,t,k}$ denote the number of vehicles of technology $k$ and age $i$ operated in period $t$, $Z_{t,k}$ the number of new vehicles of technology $k$ purchased at the beginning of period $t$, and $Y_{i,t,k}$ the number of vehicles of technology $k$ and age $i$ salvaged at the end of period $t$. The total cost formulation consists of the following components.
 
@@ -115,19 +115,19 @@ By adopting the total cost formulation proposed by Ahani et al. (2016), this the
 
 
 \section{Risk Modeling in Mean–Variance Fleet Optimization}
-\label{sub:Risk Modeling in Mean–Variance Fleet Optimization}
+\label{sub:Risk_Modeling_in_Mean–Variance_Fleet_Optimization}
 
 Based on the total cost formulation described in the previous section, uncertainty in urban fleet replacement decisions can be explicitly represented through the variability of total cost outcomes. When key cost components such as energy prices, maintenance expenses, and vehicle acquisition costs are uncertain, the total cost of operating the fleet becomes a stochastic quantity. In this context, risk is commonly quantified using the variance of total cost, which measures the dispersion of cost realizations around their expected value and captures the degree of cost volatility faced by decision-makers.
 
 \subsection{Cost Uncertainty in Urban Fleet Replacement}
-\label{sub:Cost Uncertainty in Urban Fleet Replacement}
+\label{sub:Cost_Uncertainty_in_Urban_Fleet_Replacement}
 
 Urban freight fleet replacement decisions are characterized by significant uncertainty arising from multiple cost components. Key sources of uncertainty include fuel and electricity prices, vehicle acquisition costs, maintenance and repair expenses, and residual values at the end of a vehicle’s service life. These cost elements are influenced by external factors such as energy market volatility, technological progress, regulatory changes, and macroeconomic conditions, making long-term cost estimation inherently uncertain.
 
 In this context, relying solely on deterministic or average cost values can lead to misleading conclusions and suboptimal investment decisions. Instead, fleet replacement models must explicitly account for uncertainty in order to provide solutions that are robust to fluctuations in key parameters. This has motivated the use of stochastic optimization approaches in the literature, where uncertainty is represented through scenarios or probability distributions and incorporated directly into the decision-making process.
 
 \subsection{Variance as a Measure of Risk}
-\label{sub:Variance as a Measure of Risk}
+\label{sub:Variance_as_a_Measure_of_Risk}
 
 Within stochastic optimization and portfolio-based approaches, risk is commonly quantified through the variance of total cost. Variance measures the dispersion of cost outcomes around their expected value and captures the degree of cost volatility faced by decision-makers. In the context of urban freight fleets, a higher variance indicates greater exposure to unpredictable cost fluctuations, which may challenge budget planning and financial stability.
 
@@ -136,7 +136,7 @@ The use of variance as a risk measure is well established in both financial econ
 In fleet replacement problems, variance reflects the combined uncertainty associated with different vehicle technologies and energy sources. By diversifying the fleet composition across technologies with distinct cost structures and uncertainty profiles, operators can reduce overall cost volatility, in line with the principles of Modern Portfolio Theory.
 
 \subsection{Mean–Variance Formulation in Fleet Replacement Models}
-\label{sub:Mean–Variance Formulation in Fleet Replacement Models}
+\label{sub:Mean–Variance_Formulation_in_Fleet_Replacement_Models}
 Building on the principles of Modern Portfolio Theory, the mean–variance approach has been adapted to urban fleet replacement problems by modeling vehicle technologies as portfolio assets with uncertain costs. In this framework, the Expected Total Cost (ETC) represents the mean performance criterion, while the variance of total cost captures the associated risk. The fleet replacement problem is thus formulated as a multi-objective optimization problem that seeks to minimize both ETC and cost variance.
 
 A seminal application of this approach in urban freight transportation is provided by Ahani et al. (2016), who demonstrated that a diversified fleet composed of conventional and alternative fuel vehicles can hedge against uncertainty in fuel prices and operating costs. Their results showed that the mean–variance framework allows decision-makers to explore the trade-offs between cost efficiency and risk exposure, leading to a set of Pareto-optimal fleet configurations rather than a single optimal solution.

@@ -8,44 +8,18 @@
 
 \typeout{NT FILE abstract-pt.tex}%
 
-Independentemente da língua em que a dissertação está escrita, geralmente esta contém pelo menos dois resumos: um resumo na mesma língua do texto principal e outro resumo numa outra língua.
+Operadores de transporte urbano de mercadorias enfrentam pressão crescente para descarbonizar as suas operações, ao mesmo tempo que gerem ativos de longa duração sujeitos a incerteza em fatores de custo como preços de combustíveis e eletricidade, evolução dos custos tecnológicos e valores residuais. Esta dissertação propõe um modelo de apoio à decisão para o planeamento de substituição de frota urbana que equilibra explicitamente desempenho económico e risco de custo sob incerteza. Com base numa perspetiva mean--variance inspirada na teoria de carteiras, as tecnologias de veículos são tratadas como ``ativos'' cujos custos de ciclo de vida apresentam diferentes valores esperados e variâncias.
 
-A ordem dos resumos varia de acordo com a escola. Se a sua escola tiver regulamentos específicos sobre a ordem dos resumos, o template (\LaTeX) \gls{novathesis} irá respeitá-los. Caso contrário, a regra padrão no template \gls{novathesis} é ter em primeiro lugar o resumo \emph{no mesmo idioma do texto principal} e depois o resumo \emph{no outro idioma}. Por exemplo, se a dissertação for escrita em português, a ordem dos resumos será primeiro o português e depois o inglês, seguido do texto principal em português. Se a dissertação for escrita em inglês, a ordem dos resumos será primeiro em inglês e depois em português, seguida do texto principal em inglês.
-%
-No entanto, esse pedido pode ser personalizado adicionando um dos seguintes ao arquivo \verb+5_packages.tex+.
+O problema é formulado como um modelo de otimização bi-objetivo com variáveis inteiras, minimizando (i) o \emph{Custo Total Esperado} num horizonte multi-período e (ii) a \emph{Variância do Custo Total} calculada sobre um conjunto discreto de cenários de incerteza. A dinâmica da frota é representada por restrições de envelhecimento, aquisição e abate, permitindo considerar múltiplas tecnologias (por exemplo, diesel, elétrica e híbrida) e, potencialmente, diferentes classes de veículos. Para obter o conjunto eficiente de trade-offs custo--risco, adota-se o método $\varepsilon$-constraint: minimiza-se o custo esperado impondo um limite superior $\varepsilon$ para a variância, variando-se $\varepsilon$ de forma sistemática para gerar planos de substituição Pareto-ótimos.
 
-\begin{verbatim}
-    \abstractorder(<MAIN_LANG>):={<LANG_1>,...,<LANG_N>}
-\end{verbatim}
+Está previsto um estudo de caso com um operador urbano em Lisboa (público ou privado). Caso não seja possível obter dados proprietários, o modelo será parametrizado com dados da literatura e fontes públicas. A fronteira eficiente resultante deverá apoiar análises de gestão e de política pública, mostrando como a tolerância ao risco, a incerteza nos preços de energia e as trajetórias tecnológicas influenciam a composição ótima da frota e o calendário de substituição.
 
-Por exemplo, para um documento escrito em Alemão com resumos em Alemão, Inglês e Italiano (por esta ordem), pode usar-se:
-\begin{verbatim}
-    \ntsetup{abstractorder={de={de,en,it}}}
-\end{verbatim}
-
-Relativamente ao seu conteúdo, os resumos não devem ultrapassar uma página e frequentemente tentam responder às seguintes questões (é imprescindível a adaptação às práticas habituais da sua área científica):
-
-\begin{enumerate}
-  \item Qual é o problema?
-  \item Porque é que é um problema interessante/desafiante?
-  \item Qual é a proposta de abordagem/solução?
-  \item Quais são as consequências/resultados da solução proposta?
-\end{enumerate}
-
-% E agora vamos fazer um teste com uma quebra de linha no hífen a ver se a \LaTeX\ duplica o hífen na linha seguinte se usarmos \verb+"-+… em vez de \verb+-+.
-%
-% zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz zzz zzzz comentar"-lhe zzz zzzz zzz zzzz
-%
-% Sim!  Funciona! :)
-
-% Palavras-chave do resumo em Português
-% \begin{keywords}
-% Palavra-chave 1, Palavra-chave 2, Palavra-chave 3, Palavra-chave 4
-% \end{keywords}
 \keywords{
-  Primeira palavra-chave \and
-  Outra palavra-chave \and
-  Mais uma palavra-chave \and
-  A última palavra-chave
+Substituição de frota urbana \and
+Transporte urbano de mercadorias \and
+Variância-Média \and
+Risco sob incerteza \and
+Otimização multiobjetivo \and
+Método $\varepsilon$-constraint \and
 }
 % to add an extra black line

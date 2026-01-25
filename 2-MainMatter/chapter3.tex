@@ -16,41 +16,40 @@
 
 
 \chapter{Case Study}
-\label{cha:Case Study}
+\label{cha:Case_Study}
 
 This chapter presents the case study used to illustrate and evaluate the proposed fleet replacement optimization framework. The case study is designed to represent a realistic urban freight context in which fleet operators face increasing regulatory pressure to reduce emissions while maintaining economic viability. The objective is not to replicate the operations of a specific company, but rather to develop a flexible and transferable decision-support framework that can be applied by both public and private urban freight operators.
 
 \section{Case Study Context}
-\label{sec:Case Study Context}
+\label{sec:Case_Study_Context}
 
 Urban freight operators are increasingly required to adapt their fleets in response to environmental regulations, such as low-emission zones, carbon pricing mechanisms, and technology specific incentives. These policies affect both public entities, such as municipal service providers and private logistics companies operating in urban areas. In this context, fleet replacement decisions involve long-term investment planning under uncertainty, where operators must choose between conventional and alternative vehicle technologies while considering cost volatility, budget constraints, and operational requirements.
 
 The case study considered in this thesis focuses on the development of an investment planning framework that supports strategic fleet replacement decisions under such conditions. The proposed framework is intended to be applicable to a wide range of urban freight operations, including last-mile delivery services, municipal logistics, and public transport related with freight activities.
 
 \section{Data Sources and Industry Engagement}
-\label{sec:Data Sources and Industry Engagement}
+\label{sec:Data_Sources_and_Industry_Engagement}
 
 Whenever possible, this study aims to rely on real-world data obtained through collaboration with industry partners. In particular, efforts will be made to establish contact with urban freight operators, either from the private sector or from public entities such as Carris, the public transport operator of Lisbon, which also manages logistics and support fleets. Such collaboration would allow the model parameters to reflect actual operational conditions, vehicle usage patterns, and cost structures.
 
 If access to proprietary operational data is not feasible, the case study will be constructed using data available in the academic literature, industry reports, and public databases. Cost parameters related to vehicle acquisition, energy consumption, maintenance, and emissions will be derived from published studies and market reports. This approach ensures transparency and reproducibility while maintaining a realistic representation of urban freight operations.
 
 \section{Fleet Composition and Planning Horizon}
-\label{sec:Fleet Composition and Planning Horizon}
-
+\label{sec:Fleet_Composition_and_Planning_Horizon}
 
 The fleet considered in the case study consists of multiple vehicle technologies, including Internal Combustion Engine Vehicles (ICEVs), Electric Vehicles (EVs), and Hybrid Electric Vehicles (HEVs). These technologies differ in acquisition cost, operating cost, energy source, and exposure to cost uncertainty. The inclusion of multiple vehicle types allows the analysis to capture diversification effects, which are central to the mean–variance optimization framework.
 
 The planning horizon is defined as a multi-period horizon consistent with typical vehicle lifecycles in urban freight operations. Fleet replacement decisions are made at discrete time intervals, during which vehicles may be acquired, operated, or retired. Vehicle aging, utilization levels, and salvage values are explicitly considered to reflect realistic fleet dynamics.
 
 \section{Cost and Uncertainty Representation}
-\label{sec:Cost and Uncertainty Representation}
+\label{sec:Cost_and_Uncertainty_Representation}
 
 Cost components included in the case study follow the total cost formulation presented in Chapter 2 and are consistent with the framework proposed by Ahani et al. (2016). These components include vehicle acquisition costs, energy costs, maintenance and operating expenses, emission-related costs, and salvage values. Uncertainty is introduced primarily through stochastic energy prices and operating costs, which are modeled using a finite set of scenarios.
 
 The scenarios are designed to represent plausible future market conditions, capturing variations in fuel and electricity prices as well as other cost drivers. Each scenario is associated with a probability, allowing the computation of expected costs and cost variance, which serve as the objective functions in the optimization model.
 
 \section{Purpose of the Case Study}
-\label{sec:Purpose of the Case Study}
+\label{sec:Purpose_of_the_Case_Study}
 
 The purpose of this case study is to demonstrate how the proposed optimization framework can support fleet replacement decisions under uncertainty. Rather than prescribing a single optimal solution, the model generates a set of Pareto-optimal fleet configurations that reflect different trade-offs between expected cost and risk. This enables decision-makers to evaluate alternative investment strategies and to select fleet compositions that align with their risk preferences and policy constraints.
 
