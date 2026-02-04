@@ -11,113 +11,124 @@
 \chapter{Proposed Approach}
 \label{cha:Proposed_Approach}
 
+This chapter presents the proposed optimization framework for urban fleet replacement under uncertainty. The problem is formulated as a multi-objective optimization model that explicitly balances economic performance and cost risk over a multi-period planning horizon. Building on the mean--variance perspective introduced in Chapter~\ref{cha:literature_review}, vehicle technologies are treated as portfolio assets whose lifecycle costs exhibit different expected values and variances.
+
 \section{Objective Functions}
-\label{sec:Objective_Functions}
+\label{sec:objective_functions}
 
-The urban fleet replacement problem considered in this thesis is formulated as a multi-objective optimization problem that simultaneously accounts for economic performance and risk under uncertainty. Following the mean--variance framework introduced by Markowitz (1952) and adapted to urban fleet management by Ahani et al. (2016), the objectives are defined as the minimization of the Expected Total Cost and the minimization of the Variance of the Total Cost over the planning horizon.
+The urban fleet replacement problem considered in this thesis is formulated as a multi-objective optimization problem that simultaneously accounts for economic efficiency and risk under uncertainty. Following the mean--variance framework originally developed in Modern Portfolio Theory and adapted to urban fleet management by Ahani, Arantes, and Melo~\cite{Ahani2016}, the objectives are defined as the minimization of the Expected Total Cost and the minimization of the Variance of the Total Cost over the planning horizon.
 
-Let $TC^{(s)}$ denote the total discounted cost of the fleet under scenario $s$, computed according to the cost formulation presented in Section~2.4. Given a finite set of scenarios $s \in \mathcal{S}$, each associated with probability $\pi_s$, the Expected Total Cost (ETC) is defined as:
+Let $TC(s)$ denote the total discounted cost of the fleet under scenario $s$, computed according to the total cost formulation presented in Section~\ref{sec:total_cost_formulation}. Consider a finite set of scenarios $s \in \mathcal{S}$, each associated with probability $\pi_s$.
+
+The first objective is the minimization of the Expected Total Cost (ETC):
+
 \begin{equation}
-\min \; \mathbb{E}[TC] = \sum_{s \in \mathcal{S}} \pi_s \, TC^{(s)} .
-\label{eq:ETC}
+\min \; \mathbb{E}[TC] =
+\sum_{s \in \mathcal{S}} \pi_s \, TC(s).
+\label{eq:expected_total_cost}
 \end{equation}
 
-The second objective captures risk through the variance of total cost across scenarios. The variance is defined as:
+This objective captures the average economic performance of a fleet replacement strategy across all considered uncertainty scenarios. Minimizing the expected cost favors solutions that are economically efficient on average but does not account for the dispersion or volatility of cost outcomes.
+
+To explicitly represent risk, the second objective minimizes the variance of the total cost across scenarios:
+
 \begin{equation}
-\min \; \mathrm{Var}(TC) = \sum_{s \in \mathcal{S}} \pi_s 
-\left( TC^{(s)} - \mathbb{E}[TC] \right)^2 .
-\label{eq:VarTC}
+\min \; \mathrm{Var}(TC) =
+\sum_{s \in \mathcal{S}} \pi_s
+\left( TC(s) - \mathbb{E}[TC] \right)^2 .
+\label{eq:variance_total_cost}
 \end{equation}
 
-Together, Equations~\eqref{eq:ETC} and~\eqref{eq:VarTC} define a bi-objective optimization problem. Minimizing the expected total cost favors economically efficient fleet compositions, while minimizing cost variance reduces exposure to uncertainty and cost volatility arising from stochastic parameters such as energy prices, maintenance costs, and vehicle acquisition costs.
+The variance measures the dispersion of total cost outcomes around their expected value and serves as a proxy for cost risk. In the context of urban freight fleet planning, a higher variance indicates greater exposure to uncertain energy prices, technology costs, and other stochastic parameters, which may challenge budget stability and long-term investment planning.
 
-Because these objectives are generally conflicting, no single solution simultaneously minimizes both criteria. Instead, the solution of the problem yields a set of Pareto-optimal fleet configurations, each representing a different trade-off between cost efficiency and risk exposure.
+Together, Equations~\eqref{eq:expected_total_cost} and~\eqref{eq:variance_total_cost} define a bi-objective optimization problem. Since the two objectives are generally conflicting, no single solution simultaneously minimizes both expected cost and risk. Instead, the problem admits a set of Pareto-optimal solutions, each representing a different trade-off between economic efficiency and risk exposure.
 
-\section{Solution Approach: The \texorpdfstring{$\varepsilon$}{ε}-Constraint Method}
-\label{sec:Solution_Approach}
+\section{Solution Approach: The $\varepsilon$-Constraint Method}
+\label{sec:epsilon_constraint}
 
-To solve the bi-objective fleet replacement problem, this thesis adopts the e(needstochange)-constraint method, a widely used approach for multi-objective optimization. In this method, one objective is optimized while the other is transformed into a constraint bounded by a predefined threshold.
+To solve the bi-objective fleet replacement problem, this thesis adopts the $\varepsilon$-constraint method, a widely used technique for multi-objective optimization. The core idea of the $\varepsilon$-constraint method is to optimize one objective while transforming the other objective into a constraint bounded by a predefined threshold.
 
-Specifically, the Expected Total Cost is minimized while imposing an upper bound on the variance of total cost:
-\begin{align}
-\min \quad & \mathbb{E}[TC] \\
-\text{s.t.} \quad & \mathrm{Var}(TC) \leq \varepsilon , \\
-& \text{fleet balance and operational constraints.}
-\end{align}
+In this study, the Expected Total Cost is minimized while imposing an upper bound on the variance of total cost:
 
-By systematically varying the parameter e(needstochange), different risk tolerance levels are explored, generating a set of Pareto-optimal solutions that approximate the efficient frontier. Each solution corresponds to a feasible fleet configuration with a specific balance between expected cost and risk.
+\begin{equation}
+\min \; \mathbb{E}[TC]
+\label{eq:epsilon_objective}
+\end{equation}
 
-This approach allows decision-makers to explicitly evaluate the trade-offs between economic performance and risk exposure and to select fleet compositions that align with their risk preferences and budget constraints.
+subject to
 
-\section{Sets, Indices, and Parameters}
-\label{sec:Sets_Indices_Parameters}
+\begin{equation}
+\mathrm{Var}(TC) \leq \varepsilon,
+\label{eq:epsilon_constraint}
+\end{equation}
 
-The fleet replacement problem is formulated over a discrete planning horizon and a finite set of vehicle technologies. The main sets and indices used in the model are defined as follows:
+together with the fleet balance, acquisition, and operational constraints described in Section~\ref{sec:model_constraints}.
 
-\begin{itemize}
-    \item $t \in \mathcal{T} = \{0, \dots, T\}$: index of time periods.
-    \item $k \in \mathcal{K}$: index of vehicle technologies (e.g., ICEV, HEV, EV).
-    \item $i \in \mathcal{I}_k = \{0, \dots, A_k\}$: index of vehicle age for technology $k$.
-    \item $s \in \mathcal{S}$: index of uncertainty scenarios.
-\end{itemize}
+The parameter $\varepsilon$ represents the maximum level of cost variance that the decision-maker is willing to accept. By systematically varying $\varepsilon$ over a predefined range, multiple optimization problems are solved, each corresponding to a different risk tolerance level. The collection of resulting solutions approximates the efficient frontier, which characterizes the trade-offs between expected cost and risk.
 
-The main parameters include vehicle acquisition costs, operating costs, utilization rates, discount rate, and scenario probabilities. All cost-related parameters follow the formulation introduced in Section~2.4 and may vary across scenarios when uncertainty is considered.
-
-\section{Decision Variables}
-\label{sec:Decision_Variables}
-
-The following decision variables are used in the optimization model:
-
-\begin{itemize}
-    \item $X_{i,t,k}$: number of vehicles of technology $k$ and age $i$ operated in period $t$.
-    \item $Z_{t,k}$: number of new vehicles of technology $k$ purchased at the beginning of period $t$.
-    \item $Y_{i,t,k}$: number of vehicles of technology $k$ and age $i$ salvaged at the end of period $t$.
-\end{itemize}
-
-All decision variables are non-negative integers, reflecting the discrete nature of fleet composition and replacement decisions.
+From a decision-making perspective, low values of $\varepsilon$ correspond to risk-averse strategies that prioritize cost stability, potentially at the expense of higher expected costs. Conversely, larger values of $\varepsilon$ allow for more risk-taking behavior, favoring lower expected costs while accepting greater cost volatility. This structure enables fleet managers and policymakers to explicitly evaluate alternative replacement strategies and select solutions aligned with their risk preferences.
 
 \section{Model Constraints}
-\label{sec:Model_Constraints}
+\label{sec:model_constraints}
+
+The optimization problem is subject to a set of constraints that govern fleet evolution over time, vehicle acquisition and retirement, and domain restrictions on decision variables.
 
 \subsection{Fleet Balance and Aging Constraints}
-\label{subsec:Fleet_Balance_Aging_Constraints}
 
-Fleet evolution over time is governed by vehicle aging and replacement dynamics. For each technology $k$ and age $i \geq 1$, the number of vehicles of age $i$ in period $t+1$ is equal to the number of vehicles of age $i-1$ in period $t$ minus those salvaged:
+Fleet dynamics are modeled through vehicle aging and replacement relationships. For each vehicle technology $k$, age $i \geq 1$, and period $t$, the number of vehicles of age $i$ in period $t+1$ is equal to the number of vehicles of age $i-1$ in period $t$ minus those that are salvaged:
+
 \begin{equation}
-X_{i,t+1,k} = X_{i-1,t,k} - Y_{i-1,t,k}, \quad \forall i \geq 1, \; t, \; k.
+X_{i,t+1,k} = X_{i-1,t,k} - Y_{i-1,t,k},
+\quad \forall i \geq 1, \; t, \; k.
+\label{eq:aging_constraint}
 \end{equation}
 
 Newly acquired vehicles enter the fleet with age zero:
+
 \begin{equation}
-X_{0,t+1,k} = Z_{t,k}, \quad \forall t, \; k.
+X_{0,t+1,k} = Z_{t,k},
+\quad \forall t, \; k.
+\label{eq:new_vehicle_constraint}
 \end{equation}
+
+These constraints ensure consistency in fleet evolution and explicitly track the aging process of vehicles over the planning horizon.
 
 \subsection{Acquisition and Retirement Constraints}
-\label{subsec:Acquistion_Retirement_Constraints}
 
 Vehicles can only be salvaged if they exist in the fleet:
+
 \begin{equation}
-Y_{i,t,k} \leq X_{i,t,k}, \quad \forall i, \; t, \; k.
+Y_{i,t,k} \leq X_{i,t,k},
+\quad \forall i, \; t, \; k.
+\label{eq:salvage_constraint}
 \end{equation}
 
-Additionally, vehicles exceeding their maximum allowable age $A_k$ must be retired:
+Additionally, vehicles that reach their maximum allowable age $A_k$ must be retired:
+
 \begin{equation}
-X_{A_k,t+1,k} = 0, \quad \forall t, \; k.
+X_{A_k,t+1,k} = 0,
+\quad \forall t, \; k.
+\label{eq:max_age_constraint}
 \end{equation}
+
+These constraints prevent infeasible fleet configurations and ensure that vehicle lifetimes are respected.
 
 \subsection{Domain Constraints}
-\label{subsec:Domain_Constraints}
 
-All decision variables are required to be non-negative integers:
+All decision variables are restricted to non-negative integer values:
+
 \begin{equation}
-X_{i,t,k}, \; Y_{i,t,k}, \; Z_{t,k} \in \mathbb{Z}_{+}, \quad \forall i, \; t, \; k.
+X_{i,t,k}, \; Y_{i,t,k}, \; Z_{t,k} \in \mathbb{Z}_+,
+\quad \forall i, \; t, \; k.
+\label{eq:domain_constraints}
 \end{equation}
 
+This reflects the discrete nature of fleet composition and replacement decisions.
+
 \section{Modeling Assumptions}
-\label{sec:Modeling_Assumptions}
+\label{sec:model_assumptions}
 
-The proposed model assumes deterministic fleet demand and utilization levels over the planning horizon, while uncertainty is captured through stochastic cost parameters. Vehicle technologies are assumed to be perfectly substitutable in terms of service provision, and operational constraints such as routing or charging schedules are not explicitly modeled. These assumptions allow the focus to remain on strategic fleet replacement decisions under uncertainty.
-
+The proposed model assumes deterministic fleet demand and utilization levels over the planning horizon, while uncertainty is captured through stochastic cost parameters. Vehicle technologies are assumed to be perfectly substitutable in terms of service provision, and operational constraints such as routing or charging schedules, or depot capacity are not explicitly modeled, although these operational constraints could be added into the model to better reflect fleet operation in practice. These assumptions for now, allow the focus to remain on strategic fleet replacement decisions under uncertainty.
 
 
 %% ---------------------------------------- FUTURE WORK CHAPTER 5 -------------------------------------------------- %%
@@ -128,7 +139,7 @@ The proposed model assumes deterministic fleet demand and utilization levels ove
 \label{sec:Tasks}
 Future work in this dissertation will include the following tasks:
 
-\textbf{Task 1: Data Collection and Scenario Generation.} Collection of historical and projected data regarding vehicle acquisition costs (ICEVs, HEVs and EVs), energy prices (fuel and electricity), and maintenance costs. Based on this data, I will use Python to code the total cost formulation and the mean–variance objectives defined in Chapter 4, along with all operational and fleet balance constraints. The e(needstochange)-constraint method will be applied to generate a set of Pareto-optimal solutions representing different trade-offs between Expected Total Cost and cost Variance. \par
+\textbf{Task 1: Data Collection and Scenario Generation.} Collection of historical and projected data regarding vehicle acquisition costs (ICEVs, HEVs and EVs), energy prices (fuel and electricity), and maintenance costs. Based on this data, I will use Python to code the total cost formulation and the mean–variance objectives defined in Chapter 4, along with all operational and fleet balance constraints. The $\varepsilon$-constraint method will be applied to generate a set of Pareto-optimal solutions representing different trade-offs between Expected Total Cost and cost Variance. \par
 
 Computational experiments will be conducted to assess model feasibility, convergence behavior, and solution quality under different parameter settings. These experiments will serve as the basis for evaluating the practical applicability of the proposed framework. \par
 
