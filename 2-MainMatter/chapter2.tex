@@ -9,7 +9,7 @@
 \typeout{NT FILE chapter2.tex}%
 
 \chapter{Literature review}
-\label{cha:Literature_review}
+\label{cha:literature_review}
 
 This chapter reviews the academic literature relevant to urban fleet replacement decisions under uncertainty. The review is structured to progressively narrow the focus from the broader context of sustainable urban logistics to the specific methodological tools used in this thesis. First, research on sustainable urban freight transportation and the transition toward electric vehicles is discussed. Next, classical and modern formulations of the fleet replacement problem are reviewed. The chapter then introduces portfolio-based approaches in transportation, followed by a detailed discussion of total cost formulations and risk modeling using a mean-variance framework. The chapter concludes by identifying gaps in the existing literature that motivate the optimization framework developed in Chapter~\ref{cha:Proposed_Approach}.
 
@@ -44,7 +44,7 @@ the growing influence of decarbonization policies on fleet investment decisions.
 
 A representative example is the fleet replacement model of \textcite{Xiao2023}, who formulate a mixed-integer
 programming framework under a cap-and-trade system while explicitly incorporating uncertainty in
-government subsidies over the planning horizon. The study considers multiple vehicle technologies and alternative business models such as battery
+government subsidies over the planning period. The study considers multiple vehicle technologies and alternative business models such as battery
 leasing. This demonstrates that policy uncertainty should not be ignored because it can be a
 quantitative driver of optimal replacement timing and fleet composition.
 
@@ -77,101 +77,21 @@ homogeneous vehicle characteristics. Therefore, there is space for extending the
 to accommodate multiple vehicle technologies and characteristics, aiming to better reflect the
 heterogeneity of real urban freight fleets while preserving analytical tractability.
 
-\section{Total Cost Formulation in Fleet Replacement Models}
+\section{Total Cost in Fleet Replacement Models}
 \label{sub:Total_Cost_Formulation_in_Fleet_Replacement_Models}
 
-In fleet replacement optimization problems, the definition of total cost plays a central role in evaluating alternative fleet compositions and investment strategies. Following the framework proposed by \textcite{Ahani2016}, the total cost of a fleet over the planning horizon is typically composed of several cost components, including vehicle acquisition costs, energy costs, maintenance and operation expenses, and residual values at the end of the vehicle life cycle.
+In fleet replacement optimization problems, the definition of total cost plays a central role in evaluating alternative fleet compositions and investment strategies. Following the framework proposed by \textcite{Ahani2016}, the total cost of a fleet over the planning period is typically composed of several cost components, including vehicle acquisition costs, energy costs, maintenance and operation expenses, and residual values at the end of the vehicle life cycle.
 
-Vehicle acquisition costs represent the upfront capital expenditure associated with purchasing new vehicles of different technologies. Energy costs include fuel or electricity consumption and depend on vehicle efficiency, usage intensity, and energy prices, which may vary over time and across scenarios. Maintenance and operating costs capture routine servicing, repairs, and other operational expenses that are influenced by vehicle technology and age. In some formulations, residual values or replacement costs are also considered to account for the remaining value of vehicles at the end of the planning horizon.
+Vehicle acquisition costs represent the upfront capital expenditure associated with purchasing new vehicles of different technologies. Energy costs include fuel or electricity consumption and depend on vehicle efficiency, usage intensity, and energy prices, which may vary over time and across scenarios. Maintenance and operating costs capture routine servicing, repairs, and other operational expenses that are influenced by vehicle technology and age. In some formulations, residual values or replacement costs are also considered to account for the remaining value of vehicles at the end of the planning period.
 
 When uncertainty is present, some components of the total cost, most notably energy prices and operating expenses, are treated as stochastic variables. In this case, the total cost becomes a random variable, whose expected value and variance can be computed across a finite set of scenarios. This representation enables the integration of total cost modeling with portfolio-based optimization approaches, where Expected Total Cost is minimized while controlling for cost variability.
-
-The fleet replacement problem is formulated over a discrete planning horizon and a finite set of vehicle type. The main sets and indices used in the model are defined as follows:
-
-\begin{itemize}
-    \item $t \in \mathcal{T} = \{0, \dots, T\}$: index of time periods.
-    \item $i \in \mathcal{I}_k = \{0, \dots, A_k\}$: index of vehicle age for type $k$.
-    \item $k \in \mathcal{K} = \{1, \dots, K\}$: index of vehicle type.
-\end{itemize}
-
-The following decision variables are used in the optimization model:
-
-\begin{itemize}
-    \item $V_{i,t,k}$: number of vehicles of technology $k$ and age $i$ operated in period $t$.
-    \item $P_{t,k}$: number of new vehicles of technology $k$ purchased at the beginning of period $t$.
-    \item $S_{i,t,k}$: number of vehicles of technology $k$ and age $i$ salvaged at the end of period $t$.
-\end{itemize}
-
-All decision variables are non-negative integers, reflecting the discrete nature of fleet composition and replacement decisions.
-The total cost formulation consists of the following components.
-
-%% ------------------------- TOTAL ENERGY COST -------------------------
-Energy Cost: The total energy cost incurred by operating the fleet is given by:
-\begin{equation}
-EC = \sum_{i=0}^{A_k-1}\sum_{t=0}^{T-1}\sum_{k=1}^{K}
-f_{i,t,k}\,u_{i,k}\,V_{i,t,k}\,(1+dr)^{-t},
-\label{eq:EC}
-\end{equation}
-where $f_{i,t,k}$ represents the unit energy cost per kilometer (\(\text{€}/\mathrm{km}\)) for a vehicle of age $i$ and technology $k$ in period $t$, $u_{i,k}$ is the annual utilization and $dr$ denotes the discount rate.
-
-%% ----------------------- OPEX -------------------------
-Maintenance Cost: Maintenance and operating costs are modeled as:
-\begin{equation}
-MC = \sum_{i=0}^{A_k-1}\sum_{t=0}^{T-1}\sum_{k=1}^{K}
-m_{i,t,k}\,u_{i,k}\,V_{i,t,k}\,(1+dr)^{-t},
-\label{eq:MC}
-\end{equation}
-where $m_{i,t,k}$ denotes the maintenance cost per kilometer of vehicle k of an age i during period t per (€/km).
-
-%% ----------------------- CAPEX -------------------------
-Capital Investment Cost: Associated with acquiring new vehicles is expressed as:
-\begin{equation}
-CIC = \sum_{t=0}^{T-1}\sum_{k=1}^{K}
-v_{k,t}\,P_{t,k}\,(1+dr)^{-t},
-\label{eq:CIC}
-\end{equation}
-where $v_{k,t}$ is the purchase cost (€) per unit of a vehicle of technology $k$ in period $t$.
-
-%% ----------------------- EMISSION COST -------------------------
-Emission Related Cost:
-\begin{equation}
-ERC = \sum_{i=0}^{A_k-1}\sum_{t=0}^{T-1}\sum_{k=1}^{K}
-e_{i,k}\,u_{i,k}\,V_{i,t,k}\,(1+dr)^{-t},
-\label{eq:R}
-\end{equation}
-where $e_{i,k}$ represents CO$_2$ emission cost (€/km) of vehicle of age $i$, type $k$.
-
-%% ----------------------- SALVAGE REVENUE -------------------------
-Salvage Revenue: Obtained from retiring vehicles at the end of their service life is given by:
-\begin{equation}
-SR = \sum_{i=1}^{A_k}\sum_{t=0}^{T}\sum_{k=1}^{K}
-s_{i,k}\,S_{i,t,k}\,(1+dr)^{-t},
-\label{eq:SR}
-\end{equation}
-where $s_{i,k}$ denotes the salvage revenue (€) of a vehicle of age $i$ and technology $k$.
-
-%% ----------------------- TOTAL COST -------------------------
-Total Cost: By combining all cost components of the fleet over the planning horizon can be expressed as:
-
-\begin{equation}
-\begin{aligned}
-TC =\;& \sum_{t=0}^{T-1}\sum_{k=1}^{K} v_{k,t}\,P_{t,k}\,(1+dr)^{-t} - \sum_{i=1}^{A_k}\sum_{t=0}^{T}\sum_{k=1}^{K} s_{i,k}\,S_{i,t,k}\,(1+dr)^{-t} \\
-&+ \sum_{i=0}^{A_k-1}\sum_{t=0}^{T-1}\sum_{k=1}^{K}
-\bigl(f_{i,t,k}+m_{i,t,k}+e_{i,k}\bigr)\,u_{i,k}\,V_{i,t,k}\,(1+dr)^{-t}.
-\end{aligned}
-\label{eq:TC1}
-\end{equation}
-
-When uncertainty is present in parameters such as energy prices, maintenance costs, or vehicle prices, the total cost $TC$ becomes a random variable. This representation allows the Expected Total Cost and the variance of total cost to be computed across a finite set of scenarios, providing the basis for mean–variance optimization in fleet replacement decisions.
-
-By adopting the total cost formulation proposed by \textcite{Ahani2016}, this thesis ensures consistency with established models in the literature while providing a solid foundation for extending the analysis to more detailed fleet representations and multi-objective optimization frameworks.
 
 \section{Risk Modeling in Mean–Variance Fleet Optimization}
 \label{sub:Risk_Modeling_in_Mean–Variance_Fleet_Optimization}
 
 Based on the total cost formulation described in the previous section, uncertainty in urban fleet replacement can be represented through the variability of total cost outcomes across time and operating conditions. In practice, fleet investment decisions are exposed to market and technology uncertainty (energy prices, acquisition costs, residual values), operational uncertainty (demand and route requirements that affect utilization), and policy uncertainty (incentives, emissions pricing, and regulatory constraints). These uncertainties make the total discounted cost of operating and renewing a fleet a stochastic quantity rather than a deterministic value. Consequently, decisions which involve risk requires methods that do not rely on average cost assumptions, but instead captures the degree of cost volatility faced by decision-makers.
 
-In this thesis, risk is modeled using a mean–variance approach. Expected Total Cost (ETC) captures average economic performance, while the variance of total cost captures costvolatility under uncertainty. This provides a transparent mechanism to represent differentrisk attitudes and to identify fleet compositions that balance cost efficiency with financial stability.
+In this thesis, risk is modeled using a mean–variance approach. Expected Total Cost (ETC) captures average economic performance, while the variance of total cost captures cost volatility under uncertainty. This provides a transparent mechanism to represent differentrisk attitudes and to identify fleet compositions that balance cost efficiency with financial stability.
 
 \subsection{Cost Uncertainty in Urban Fleet Replacement}
 \label{sub:Cost_Uncertainty_in_Urban_Fleet_Replacement}

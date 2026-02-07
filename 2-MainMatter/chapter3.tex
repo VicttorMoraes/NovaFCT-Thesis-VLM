@@ -14,7 +14,6 @@
 }
 \makeatother
 
-
 \chapter{Case Study}
 \label{cha:Case_Study}
 
@@ -27,6 +26,11 @@ Urban freight operators are increasingly required to adapt their fleets in respo
 
 The case study considered in this thesis focuses on the development of an investment planning framework that supports strategic fleet replacement decisions under such conditions. The proposed framework is intended to be applicable to a wide range of urban freight operations, including last-mile delivery services, municipal logistics, and public transport related with freight activities.
 
+\subsection{Decision Problem and Decisions Supported}
+\label{subsec:case_decision_problem}
+
+The case study is formulated from the perspective of a fleet manager (public or private) responsible for renewing an urban freight support fleet over a multi-year horizon. The core decision problem is to determine, for each year of the planning horizon, (i) how many vehicles of each available alternative should be purchased, (ii) how many vehicles should remain in operation by age and type, and (iii) which vehicles should be retired/salvaged. The decision-maker seeks support to design a replacement plan that balances long-term economic efficiency with exposure to cost volatility, under regulatory and operational requirements.
+
 \section{Data Sources and Industry Engagement}
 \label{sec:Data_Sources_and_Industry_Engagement}
 
@@ -34,12 +38,19 @@ Whenever possible, this study aims to rely on real-world data obtained through c
 
 If access to proprietary operational data is not feasible, the case study will be constructed using data available in the academic literature, industry reports, and public databases. Cost parameters related to vehicle acquisition, energy consumption, maintenance, and emissions will be derived from published studies and market reports. This approach ensures transparency and reproducibility while maintaining a realistic representation of urban freight operations.
 
-\section{Fleet Composition and Planning Horizon}
-\label{sec:Fleet_Composition_and_Planning_Horizon}
+\subsection{Operational and Regulatory Conditioning Factors}
+\label{subsec:case_constraints}
+
+The proposed model is intended to reflect the main conditioning factors faced by urban fleet operators, which motivate the mathematical constraints in Chapter~\ref{cha:Proposed_Approach}. In the baseline case study, service provision is ensured through a minimum fleet availability requirement, requiring that the number of vehicles in operation is at least $N_t$ in each year $t$. In addition, fleet dynamics must respect vehicle aging and retirement rules, including technology-dependent maximum lifetimes $A_k$ when these are available.
+
+Beyond the baseline constraints, the case study also considers policy and operational factors that may be activated depending on data availability and stakeholder priorities, such as: (i) annual investment budget limits, (ii) minimum shares of low-emission vehicles due to low-emission zone compliance, (iii) emission caps or carbon pricing schemes, and (iv) charging infrastructure limitations that restrict the maximum number of EVs that can be operated simultaneously. These elements provide a clear pathway to extend the model from a baseline setting to operator-specific applications.
+
+\section{Fleet Composition and Planning Period}
+\label{sec:Fleet_Composition_and_Planning_Period}
 
 The fleet considered in the case study consists of multiple vehicle technologies, including Internal Combustion Engine Vehicles (ICEVs), Electric Vehicles (EVs), and Hybrid Electric Vehicles (HEVs). These technologies differ in acquisition cost, operating cost, energy source, and exposure to cost uncertainty. The inclusion of multiple vehicle types allows the analysis to capture diversification effects, which are central to the mean–variance optimization framework.
 
-The planning horizon is defined as a multi-period horizon consistent with typical vehicle lifecycles in urban freight operations. Fleet replacement decisions are made at discrete time intervals, during which vehicles may be acquired, operated, or retired. Vehicle aging, utilization levels, and salvage values are explicitly considered to reflect realistic fleet dynamics.
+The planning period is defined as a number of years consistent with typical vehicle lifecycles in urban freight operations. Fleet replacement decisions are made at discrete time intervals, during which vehicles may be acquired, operated, or retired. Vehicle aging, utilization levels, and salvage values are explicitly considered to reflect realistic fleet dynamics.
 
 \section{Cost and Uncertainty Representation}
 \label{sec:Cost_and_Uncertainty_Representation}
@@ -55,7 +66,7 @@ The purpose of this case study is to demonstrate how the proposed optimization f
 
 By remaining independent of a specific operator, the case study framework is designed to be transferable and adaptable. As such, it can be applied by any public or private urban freight operator seeking to structure or renew a fleet in response to environmental regulations and uncertain economic conditions.
 
-
+The main outputs provided to the decision-maker are: (i) the efficient frontier relating expected total cost to cost risk, (ii) the corresponding fleet composition paths by technology-model and year, (iii) annual purchase and retirement schedules, and (iv) a decomposition of total expected cost into investment, energy, maintenance, emissions-related costs, and salvage values. These outputs enable the decision-maker to compare risk-averse and risk-tolerant strategies and to assess how diversification across vehicle alternatives affects budget stability.
 
 % This Chapter aims at exemplifying how to do common stuff with \LaTeX. We also show some stuff which is not that common! ;)
 
