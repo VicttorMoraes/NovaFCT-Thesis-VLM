@@ -18,45 +18,55 @@ This chapter reviews the academic literature relevant to urban fleet replacement
 \section{Sustainable Urban Logistics and the EV Transition}
 \label{sec:Sustainable_Urban_Logistics_and_the_EV_Transition}
 
-Driven by e-commerce and urbanization, last mile delivery has grown substantially and it has intensified the challenges of urban freight distribution. As noted by \textcite{Ahani2016}, many studies have been published with the goal of dealing GHG, noise emission and congestion arising from the freight movements inside urban populated areas (\textcite{TipagornwongFigliozzi2014, RUSSO201261, Dablanc2007,OECD2003AnnualReport,PelletierJabaliLaporte2016,Barter2012}). Urban logistics is a primary source of congestion and local pollution. Consequently, regulatory bodies are implementing stricter measures, such as Low Emission Zones (LEZ) and carbon taxes, forcing operators to take a second and think carefully about their fleet composition. \par
+Driven by e-commerce and urbanization, last mile delivery has grown substantially and it has intensified the challenges of urban freight distribution. As noted by \textcite{Ahani2016}, many studies have been published with the goal of dealing GHG, noise emission and congestion arising from the freight movements inside urban populated areas (\textcite{TipagornwongFigliozzi2014,PelletierJabaliLaporte2016}). Urban logistics is a primary source of congestion and local pollution. Consequently, regulatory bodies have implemented stricter measures, such as Low Emission Zones (LEZ) and carbon taxes, forcing operators to take a second and think carefully about their fleet composition (\textcite{BroaddusBrowneAllen2015,Watkiss2003LondonLEZ}). \par
 
 Electric Vehicles (EVs) have emerged as the leading alternative to Internal Combustion Engine Vehicles (ICEVs). Studies indicate that while EVs have higher acquisition costs, their operational costs (energy and maintenance) are significantly lower. However, the transition is not trivial. Authors like \textcite{Nina2010} and \textcite{Pelletier2019EBFTP} highlight that the "Total Cost of Ownership" (TCO) depends heavily on usage intensity, charging infrastructure availability, and battery lifespan uncertainty. Therefore, the decision to switch is not merely operational but a strategic investment under uncertainty. \par
 
 Furthermore, the economic environment for fleet operators is becoming increasingly volatile. According to the \textcite{WorldBank2025CMO} \citetitle{WorldBank2025CMO}, energy prices are subject to significant downside and upside risks driven by geopolitical tensions and supply chain disruptions. This report highlights that while supply conditions might stabilize some commodity prices, the risks of extreme fluctuations remain. For a fleet manager, this reinforces that relying on static cost averages is dangerous; a robust model must account for these potential extreme price swings (tail risks).
 
-\section{Fleet Replacement Problem}
+\subsection{Fleet Replacement Problem}
 \label{sec:Fleet_Replacement_Problem}
 
-Fleet replacement is a classical decision problem in operations research, traditionally formulated as a
-trade-off between increasing operating and maintenance costs of aging assets and the net cost of
-replacement, normally taking into account a budget, capacity, or service constraints. Early formulations typically relied on
-deterministic assumptions, treating future fuel prices, vehicle costs, and demand as known parameters \parencite{Emiliano2020}.
-In another study, \textcite{FengFigliozzi2013} present a deterministic integer linear programming model that integrates the vehicle replacement problem with the fleet size and mix problem for commercial fleets, enabling a comparison between electric vehicles (EVs) and diesel vehicles (DVs).
-While such models can yield useful baseline insights, they may be fragile in practice when exposed to
-volatility in markets, policy, and technology. Therefore, when considering real-world volatility, deterministic models are insufficient. \par
+Fleet replacement is a classical decision problem in operations research, traditionally
+formulated as a trade-off between increasing operating and maintenance costs of aging
+assets and the net cost of replacement, typically subject to budget, capacity, and service
+constraints. Early formulations often relied on deterministic assumptions, treating future
+fuel prices, vehicle acquisition costs, and demand as known parameters. While such models
+can yield useful baseline insights, they may be fragile in practice when exposed to volatility
+in markets, policy, and technology, consequently, purely deterministic models can be
+insufficient for real-world fleet investment planning.
 
-To address this limitation, recent contributions increasingly adopt stochastic and robust optimization
-approaches. For example, \textcite{Onyshchenko2024} discuss integrated models for complex transport systems, emphasizing the need to account for variable parameters. Similarly, \textcite{Ahani2023UFT} introduced regulatory constraints into replacement models, showing that policy uncertainty significantly impacts optimal replacement timing. The consensus is clear: models must account for randomness in input parameters (fuel prices, demand, technology costs) to provide robust solutions. In these models, uncertainty is represented via scenarios or probability distributions and
-embedded directly into the decision-making process, enabling the derivation of strategies that are less
-sensitive to adverse realizations of uncertain inputs. Within sustainable transportation contexts,
-regulatory constraints and policy mechanisms have become central modeling components, reflecting
-the growing influence of decarbonization policies on fleet investment decisions.
+Beyond mean-variance portfolio formulations, the fleet replacement problem has been
+addressed through a variety of optimization approaches. A common baseline is deterministic
+or mixed-integer programming (MIP) modeling, where replacement timing and fleet mix are
+optimized under budget and operational constraints, often incorporating environmental costs
+or emissions policies. For instance, \textcite{FengFigliozzi2013} propose an integer programming
+framework to analyze the economic competitiveness of electric versus conventional commercial
+vehicles across utilization and price scenarios. Similarly, \textcite{FigliozziBoudartFeng2011}
+develop a vehicle replacement model that explicitly captures trade-offs between economic and
+environmental objectives, including taxes and incentives. In the public transport context,
+\textcite{Pelletier2019EBFTP} formulate the electric bus fleet transition problem, integrating
+replacement planning with charging infrastructure investment decisions and electrification targets.
 
-A representative example is the fleet replacement model of \textcite{Xiao2023}, who formulate a mixed-integer
-programming framework under a cap-and-trade system while explicitly incorporating uncertainty in
-government subsidies over the planning period. The study considers multiple vehicle technologies and alternative business models such as battery
-leasing. This demonstrates that policy uncertainty should not be ignored because it can be a
-quantitative driver of optimal replacement timing and fleet composition.
+More recent studies extend these replacement models by embedding uncertainty and policy
+mechanisms directly into the decision process. For example, \textcite{Xiao2023} develop a fleet
+replacement optimization model under a cap-and-trade system while accounting for uncertainty
+in government subsidies and alternative business models (e.g., leasing). In parallel, other work
+highlights uncertainty arising from operational conditions: \textcite{Malladi2020} formulate a
+two-stage stochastic program for fleet size and mix decisions under uncertain customer requests
+and temperature-dependent energy consumption, showing that operational variability can
+materially affect optimal fleet composition and the feasibility of electrification.
 
-In parallel, other research focuses on uncertainty that emerges from operational conditions rather than
-policy or market parameters. \textcite{Malladi2020} propose a two-stage stochastic program for fleet size and
-mix decisions in urban logistics with uncertain customer requests and ambient temperature, and it
-highlights that temperature-dependent auxiliary energy consumption can substantially affect EV range
-and operational feasibility. Such models emphasize the tight coupling between strategic fleet decisions
-and operational performance, particularly when EV energy consumption is sensitive to environmental
-factors.
+Finally, complementary strands of the literature emphasize evaluation and decision-support
+methods that do not rely exclusively on optimization-based replacement models. For example,
+\textcite{Kaszubowski2019} proposes a qualitative multi-tier method to evaluate urban freight
+models, while systematic reviews like \textcite{AlvarezGallo2023} document the use
+of Multi-Criteria Decision Analysis (MCDA) to balance sustainability, cost, and service criteria.
+However, while MCDA is effective for ranking strategic alternatives, it typically does not
+quantify cost-risk trade-offs under uncertainty via an explicit efficient frontier. This motivates
+the adoption of portfolio-based approaches, which directly characterize the trade-off between
+expected cost and cost variability across scenarios.
 
-Finally, \textcite{Kaszubowski2019} proposes a three-tier qualitative method to evaluate urban freight models, emphasizing the need for tools that align strategic objectives with operational data. Similarly, a systematic review by \textcite{AlvarezGallo2023} highlights the extensive use of Multi-Criteria Decision Analysis (MCDA) to balance conflicting goals like sustainability and cost. However, while MCDA is excellent for ranking strategic alternatives, it often lacks the mathematical capacity to quantify financial risk distributions explicitly.
 
 \section{The Portfolio Approach in Transportation}
 \label{sub:The_Portfolio_Approach_in_Transportation}
@@ -117,6 +127,12 @@ Building on the principles of Modern Portfolio Theory, the mean–variance appro
 
 A seminal application of this approach in urban freight transportation is provided by \textcite{Ahani2016}, who demonstrated that a diversified fleet composed of conventional and alternative fuel vehicles can hedge against uncertainty in fuel prices and operating costs. Their results showed that the mean–variance framework allows decision-makers to explore the trade-offs between cost efficiency and risk exposure, leading to a set of Pareto-optimal fleet configurations rather than a single optimal solution.
 
-From a modeling perspective, the mean–variance formulation is particularly suitable for mixed-integer linear programming (MILP) extensions of fleet replacement problems. When cost uncertainty is represented through a finite set of scenarios, the expected cost and variance can be computed explicitly and incorporated into the optimization model. This enables the systematic exploration of cost–risk trade-offs using established multi-objective solution techniques, such as the $\varepsilon$-constraint method, while maintaining computational tractability.
+From a modeling perspective, the mean-variance formulation is particularly suitable
+for mixed-integer quadratic programming (MIQP) extensions of fleet replacement problems.
+When cost uncertainty is represented through a finite set of scenarios, the expected cost
+is linear, while the variance term introduces a convex quadratic expression that can be
+handled directly by modern solvers. This enables the systematic exploration of cost-risk
+trade-offs using established multi-objective solution techniques, such as the
+$\varepsilon$-constraint method, while maintaining computational tractability.
 
 Overall, the mean–variance framework provides a coherent and well-founded approach for modeling risk in urban fleet replacement decisions. It allows the explicit representation of uncertainty, supports diversification across vehicle technologies, and offers decision-makers a transparent tool to balance economic performance and risk in the transition toward more sustainable urban freight systems.

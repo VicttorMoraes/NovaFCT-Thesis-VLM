@@ -120,6 +120,14 @@ To explicitly represent risk, the second objective minimizes the variance of the
 \label{eq:variance_total_cost}
 \end{equation}
 
+Although the scenario total cost $TC_s$ is linear in the decision variables, the variance
+definition in ~\eqref{eq:variance_total_cost} contains squared deviation terms and therefore induces a
+quadratic objective (or a quadratic constraint under the $\varepsilon$-constraint method).
+Consequently, the resulting formulation is a mixed-integer quadratic program (MIQP).
+When the variance is bounded by $\varepsilon$, the model becomes a mixed-integer
+quadratically constrained program (MIQCP). This is consistent with \textcite{Ahani2016},
+who solves the mean-variance fleet replacement formulation as a mixed-integer quadratic model.
+
 The variance measures the dispersion of total cost outcomes around their expected value and serves as a proxy for cost risk. In the context of urban freight fleet planning, a higher variance indicates greater exposure to uncertain energy prices, technology costs, and other stochastic parameters, which may challenge budget stability and long-term investment planning.
 
 Together, Equations~\eqref{eq:expected_total_cost} and~\eqref{eq:variance_total_cost} define a bi-objective optimization problem. Since the two objectives are generally conflicting, no single solution simultaneously minimizes both expected cost and risk. Instead, the problem admits a set of Pareto-optimal solutions, each representing a different trade-off between economic efficiency and risk exposure.
@@ -227,7 +235,7 @@ Computational experiments will be conducted to assess model feasibility, converg
 \textbf{Task 2: Analysis of Cost–Risk Trade-offs.} Once the efficient frontier is obtained, the next step involves analyzing the economic trade-offs between cost efficiency and risk exposure. The impact of increasing risk aversion on fleet composition will be examined by comparing solutions associated with different variance thresholds. This analysis will provide insights into how diversification across vehicle technologies contributes to reducing cost volatility while maintaining acceptable expected costs. \par
 
 \textbf{Task 3: $\varepsilon$-constraint routine and efficient frontier construction.}
-A dedicated routine will be implemented to solve a sequence of MILPs using the $\varepsilon$-constraint method. In each run, the model will minimize expected total cost while enforcing a bound on the risk measure:
+A dedicated routine will be implemented to solve a sequence of MIQCPs using the $\varepsilon$-constraint method. In each run, the model will minimize expected total cost while enforcing a bound on the risk measure:
 \begin{equation}
     \min \ \mathbb{E}[TC] \quad \text{s.t.} \quad \mathrm{Risk}(TC) \le \varepsilon.
 \end{equation}
