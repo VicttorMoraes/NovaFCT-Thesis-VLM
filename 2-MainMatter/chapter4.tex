@@ -203,7 +203,7 @@ The optimization problem is subject to a set of constraints that govern fleet ev
 Fleet dynamics are modeled through vehicle aging and replacement relationships. For each vehicle technology $k$, age $i \geq 1$, and period $t$, the number of vehicles of age $i$ in period $t+1$ is equal to the number of vehicles of age $i-1$ in period $t$ minus those that are salvaged:
 
 \begin{equation}
-X_{i,t+1,k} = X_{i-1,t,k} - Y_{i-1,t,k},
+V_{i,t+1,k} = V_{i-1,t,k} - P_{i-1,t,k},
 \quad \forall i \geq 1, \; t, \; k.
 \label{eq:aging_constraint}
 \end{equation}
@@ -211,7 +211,7 @@ X_{i,t+1,k} = X_{i-1,t,k} - Y_{i-1,t,k},
 Newly acquired vehicles enter the fleet with age zero:
 
 \begin{equation}
-X_{0,t+1,k} = Z_{t,k},
+V_{0,t+1,k} = S_{t,k},
 \quad \forall t, \; k.
 \label{eq:new_vehicle_constraint}
 \end{equation}
@@ -223,7 +223,7 @@ These constraints ensure consistency in fleet evolution and explicitly track the
 Vehicles can only be salvaged if they exist in the fleet:
 
 \begin{equation}
-Y_{i,t,k} \leq X_{i,t,k},
+P_{i,t,k} \leq V_{i,t,k},
 \quad \forall i, \; t, \; k.
 \label{eq:salvage_constraint}
 \end{equation}
@@ -231,7 +231,7 @@ Y_{i,t,k} \leq X_{i,t,k},
 Additionally, vehicles that reach their maximum allowable age $A_k$ must be retired:
 
 \begin{equation}
-X_{A_k,t+1,k} = 0,
+V_{A_k,t+1,k} = 0,
 \quad \forall t, \; k.
 \label{eq:max_age_constraint}
 \end{equation}
@@ -243,7 +243,7 @@ These constraints prevent infeasible fleet configurations and ensure that vehicl
 All decision variables are restricted to non-negative integer values:
 
 \begin{equation}
-X_{i,t,k}, \; Y_{i,t,k}, \; Z_{t,k} \in \mathbb{Z}_+,
+V_{i,t,k}, \; P_{i,t,k}, \; S_{t,k} \in \mathbb{S}_+,
 \quad \forall i, \; t, \; k.
 \label{eq:domain_constraints}
 \end{equation}
