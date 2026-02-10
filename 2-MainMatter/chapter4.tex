@@ -132,10 +132,46 @@ The variance measures the dispersion of total cost outcomes around their expecte
 
 Together, Equations~\eqref{eq:expected_total_cost} and~\eqref{eq:variance_total_cost} define a bi-objective optimization problem. Since the two objectives are generally conflicting, no single solution simultaneously minimizes both expected cost and risk. Instead, the problem admits a set of Pareto-optimal solutions, each representing a different trade-off between economic efficiency and risk exposure.
 
+\section{Alternative Risk Measures (Model Variants)}
+\label{sec:alt_risk_measures}
+
+\subsection{Mean Absolute Deviation (MAD)}
+\label{subsec:mad_formulation}
+
+Variance leads to a quadratic risk term. A linear alternative is the Mean Absolute Deviation (MAD), which measures the expected absolute deviation of scenario costs from their mean. In a scenario-based setting, MAD can be embedded in the optimization model using auxiliary variables, yielding a mixed-integer linear program (MILP) variant \parencite{MANSINI2014518}. 
+Let ${E}[TC]$ denote the expected total cost:
+\[
+{E}[TC] = \sum_{s\in\mathcal S}\pi_s\,TC_s.
+\]
+Define variables $u_s \ge 0$ such that:
+\[
+u_s \ge TC_s - {E}[TC],\quad u_s \ge -(TC_s - {E}[TC]),\quad \forall s\in\mathcal S.
+\]
+Then the MAD risk term is
+\[
+\sum_{s\in\mathcal S}\pi_s u_s.
+\]
+
+\subsection{Conditional Value-at-Risk (CVaR)}
+\label{subsec:cvar_formulation}
+
+To emphasize downside protection, Conditional Value-at-Risk (CVaR) captures the expected cost in the worst $(1-\alpha)$ tail of the distribution. Under a discrete scenario set, CVaR admits an equivalent formulation with linear constraints \parencite{RockafellarUryasev2000}. Introduce a variable $\eta$ (Value-at-Risk surrogate) and auxiliary variables $\xi_s \ge 0$:
+\[
+\xi_s \ge TC_s - \eta,\quad \xi_s \ge 0, \quad \forall s \in \mathcal{S}.
+\]
+Then
+\[
+\mathrm{CVaR}_{\alpha}(TC) = \eta + \frac{1}{1-\alpha}\sum_{s \in \mathcal{S}} \pi_s \xi_s.
+\]
+CVaR has also been applied to sustainable fleet replacement to quantify the risk of lifecycle costs under uncertain fuel and carbon-related parameters \parencite{ANSARIPOOR2014701}.
+
+
 \section{Solution Approach: The $\varepsilon$-Constraint Method}
 \label{sec:epsilon_constraint}
 
 To solve the bi-objective fleet replacement problem, this thesis adopts the $\varepsilon$-constraint method, a widely used technique for multi-objective optimization. The core idea of the $\varepsilon$-constraint method is to optimize one objective while transforming the other objective into a constraint bounded by a predefined threshold.
+
+The $\varepsilon$-constraint method is applicable not only to the baseline MIQP formulation but also to the MILP variants obtained under MAD or CVaR risk, enabling consistent construction of efficient frontiers across different risk definitions.
 
 In this study, the Expected Total Cost is minimized while imposing an upper bound on the variance of total cost:
 
@@ -235,7 +271,7 @@ Computational experiments will be conducted to assess model feasibility, converg
 \textbf{Task 2: Analysis of Cost–Risk Trade-offs.} Once the efficient frontier is obtained, the next step involves analyzing the economic trade-offs between cost efficiency and risk exposure. The impact of increasing risk aversion on fleet composition will be examined by comparing solutions associated with different variance thresholds. This analysis will provide insights into how diversification across vehicle technologies contributes to reducing cost volatility while maintaining acceptable expected costs. \par
 
 \textbf{Task 3: $\varepsilon$-constraint routine and efficient frontier construction.}
-A dedicated routine will be implemented to solve a sequence of MIQCPs using the $\varepsilon$-constraint method. In each run, the model will minimize expected total cost while enforcing a bound on the risk measure:
+A dedicated routine will be implemented to solve a sequence of MIQCPs using the $\varepsilon$-constraint method. In each run, the model will minimize Expected Total Cost while enforcing a bound on the risk measure:
 \begin{equation}
     \min \ \mathbb{E}[TC] \quad \text{s.t.} \quad \mathrm{Risk}(TC) \le \varepsilon.
 \end{equation}

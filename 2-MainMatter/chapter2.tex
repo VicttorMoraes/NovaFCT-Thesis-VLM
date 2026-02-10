@@ -96,19 +96,12 @@ Vehicle acquisition costs represent the upfront capital expenditure associated w
 
 When uncertainty is present, some components of the total cost, most notably energy prices and operating expenses, are treated as stochastic variables. In this case, the total cost becomes a random variable, whose expected value and variance can be computed across a finite set of scenarios. This representation enables the integration of total cost modeling with portfolio-based optimization approaches, where Expected Total Cost is minimized while controlling for cost variability.
 
-\section{Risk Modeling in Mean–Variance Fleet Optimization}
+\section{Risk Modeling in Fleet Optimization}
 \label{sub:Risk_Modeling_in_Mean–Variance_Fleet_Optimization}
 
-Based on the total cost formulation described in the previous section, uncertainty in urban fleet replacement can be represented through the variability of total cost outcomes across time and operating conditions. In practice, fleet investment decisions are exposed to market and technology uncertainty (energy prices, acquisition costs, residual values), operational uncertainty (demand and route requirements that affect utilization), and policy uncertainty (incentives, emissions pricing, and regulatory constraints). These uncertainties make the total discounted cost of operating and renewing a fleet a stochastic quantity rather than a deterministic value. Consequently, decisions which involve risk requires methods that do not rely on average cost assumptions, but instead captures the degree of cost volatility faced by decision-makers.
+Based on the total cost formulation described in the previous section, uncertainty in urban fleet replacement can be represented by the dispersion of total cost outcomes across alternative future states. In practice, long-term fleet investment decisions are exposed to market and technology uncertainty (fuel and electricity prices, acquisition costs, and residual values), operational uncertainty (demand and routing requirements that affect utilization), and policy uncertainty (incentives, emissions pricing, and access restrictions). These drivers make the total discounted cost of renewing and operating a fleet inherently stochastic rather than deterministic, so relying on point estimates or average values can lead to misleading conclusions and suboptimal investments. Consequently, the literature commonly models uncertainty through scenarios or probability distributions and embeds it directly into the optimization problem to evaluate candidate fleet strategies under a range of plausible conditions \parencite{MALLADI2022102554,Ahani2023UFT}. Once uncertainty is represented, the remaining modeling choice is how to quantify and penalize risk across scenarios.
 
-In this thesis, risk is modeled using a mean–variance approach. Expected Total Cost (ETC) captures average economic performance, while the variance of total cost captures cost volatility under uncertainty. This provides a transparent mechanism to represent differentrisk attitudes and to identify fleet compositions that balance cost efficiency with financial stability.
-
-\subsection{Cost Uncertainty in Urban Fleet Replacement}
-\label{sub:Cost_Uncertainty_in_Urban_Fleet_Replacement}
-
-Urban freight fleet replacement decisions are characterized by significant uncertainty arising from multiple cost components. Key sources of uncertainty include fuel and electricity prices, vehicle acquisition costs, maintenance and repair expenses, and residual values at the end of a vehicle’s service life. These cost elements are influenced by external factors such as energy market volatility, technological progress, regulatory changes, and macroeconomic conditions, making long-term cost estimation inherently uncertain.
-
-In this context, relying solely on deterministic or average cost values can lead to misleading conclusions and suboptimal investment decisions. Instead, fleet replacement models must explicitly account for uncertainty in order to provide solutions that are robust to fluctuations in key parameters. This has motivated the use of stochastic optimization approaches in the literature, where uncertainty is represented through scenarios or probability distributions and incorporated directly into the decision-making process.
+To demonstrate that risk can be modeled in multiple ways, it is useful to distinguish between (i) deviation-based measures that capture dispersion using linear constructs and (ii) tail-focused measures that explicitly represent exposure to extreme adverse outcomes. These alternatives are well established in risk-aware optimization and can be integrated into scenario-based fleet replacement models with different computational implications \parencite{MANSINI2014518}.
 
 \subsection{Variance as a Measure of Risk}
 \label{sub:Variance_as_a_Measure_of_Risk}
@@ -121,8 +114,23 @@ In fleet replacement problems, variance reflects the combined uncertainty associ
 
 While variance does not explicitly capture tail risk, its analytical tractability and intuitive interpretation make it particularly suitable for strategic fleet planning problems. Variance-based risk measures are widely used in both financial economics and transportation research and can be naturally integrated into optimization models.
 
-\subsection{Mean–Variance Formulation in Fleet Replacement Models}
-\label{sub:Mean–Variance_Formulation_in_Fleet_Replacement_Models}
+\subsection{Mean Absolute Deviation as a Measure of Risk}
+\label{sub:mad}
+
+A known linear alternative to variance is the Mean Absolute Deviation (MAD), which measures the expected absolute deviation of scenario outcomes around a central tendency, often the mean. Under a discrete scenario set, MAD can be linearized using auxiliary variables, leading to MILP-compatible formulations while preserving an interpretable dispersion based notion of risk \parencite{MANSINI2014518}.
+
+\subsection{Conditional Value-at-Risk as a Measure of Risk}
+\label{sub:cvar}
+
+Tail-risk measures focus on the worst outcomes rather than overall dispersion. Conditional Value-at-Risk (CVaR), also known as Expected Shortfall, captures the expected cost in the worst $(1-\alpha)$ fraction of scenarios. In scenario-based optimization, CVaR admits an equivalent formulation using auxiliary variables and linear constraints, which makes it attractive for risk-aware planning models \parencite{RockafellarUryasev2000}. Importantly, CVaR has already been used directly in sustainable fleet replacement contexts to represent cost risk under uncertain fuel and carbon-related parameters, demonstrating its relevance beyond purely financial applications \parencite{ANSARIPOOR2014701}.
+
+\subsection{Entropic Value-at-Risk as a Measure of Risk}
+\label{sub:evar}
+
+Recent research has also proposed non-linear coherent measures such as Entropic Value-at-Risk (EVaR), which upper bounds tail risk through exponential (Chernoff) bounds and can yield tractable convex formulations in certain stochastic optimization settings \parencite{AhmadiJavid2011}. EVaR provides an example of a non-linear risk modeling paradigm and helps position variance-based risk within a broader methodological landscape.
+
+\section{Mean–Variance Formulation in Fleet Replacement Models}
+\label{sec:Mean–Variance_Formulation_in_Fleet_Replacement_Models}
 Building on the principles of Modern Portfolio Theory, the mean–variance approach has been adapted to urban fleet replacement problems by modeling vehicle technologies as portfolio assets with uncertain costs. In this framework, the Expected Total Cost (ETC) represents the mean performance criterion, while the variance of total cost captures the associated risk. The fleet replacement problem is thus formulated as a multi-objective optimization problem that seeks to minimize both ETC and cost variance.
 
 A seminal application of this approach in urban freight transportation is provided by \textcite{Ahani2016}, who demonstrated that a diversified fleet composed of conventional and alternative fuel vehicles can hedge against uncertainty in fuel prices and operating costs. Their results showed that the mean–variance framework allows decision-makers to explore the trade-offs between cost efficiency and risk exposure, leading to a set of Pareto-optimal fleet configurations rather than a single optimal solution.
